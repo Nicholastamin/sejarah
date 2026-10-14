@@ -88,7 +88,302 @@
 @keyframes progressGleam{0%{transform:translateX(-120%)}100%{transform:translateX(250%)}}
 @keyframes gridBreath{0%{opacity:.07}100%{opacity:.15}}
 @media(prefers-reduced-motion:reduce){.deck .cinema-embers,.deck:before,.slide.active h1,.slide.active h2,.slide.active .visual,.slide.active .visual:after,.slide.active .person,.slide.active .tag,.slide.active .members-stamp,.progress-fill:after,.cinema-flash{animation:none!important}}
+/* === CINEMATIC 3D TRANSITIONS === */
+.deck {
+  perspective: 1400px;
+  transform-style: preserve-3d;
+  isolation: isolate;
+}
 
+.slide {
+  backface-visibility: hidden;
+  transform-origin: 50% 50%;
+  transition:
+    opacity .65s cubic-bezier(.22,.61,.36,1),
+    transform .85s cubic-bezier(.16,1,.3,1),
+    filter .65s ease,
+    visibility .65s;
+  filter: blur(5px) saturate(.75);
+  will-change: opacity, transform, filter;
+}
+
+.slide.active {
+  filter: blur(0) saturate(1);
+  transform: translate3d(0,0,0) rotateX(0) rotateY(0) scale(1);
+}
+
+/* Slide keluar dan masuk dengan kedalaman */
+.slide:not(.active) {
+  pointer-events: none;
+}
+
+.slide.active .kicker {
+  animation: cinematicKicker .7s .08s both;
+}
+
+.slide.active h1,
+.slide.active h2 {
+  animation: cinematicHeading .9s cubic-bezier(.16,1,.3,1) both;
+}
+
+.slide.active .rule {
+  animation: cinematicRule .8s .2s both;
+}
+
+.slide.active .subtitle,
+.slide.active .year,
+.slide.active .bottom-note {
+  animation: cinematicText .8s .32s both;
+}
+
+.slide.active .copy p,
+.slide.active .body-copy p {
+  animation: cinematicText .75s both;
+}
+
+.slide.active .copy p:nth-child(2),
+.slide.active .body-copy p:nth-child(2) {
+  animation-delay: .12s;
+}
+
+.slide.active .copy p:nth-child(3),
+.slide.active .body-copy p:nth-child(3) {
+  animation-delay: .22s;
+}
+
+.slide.active .visual {
+  animation: cinematicVisual .95s cubic-bezier(.16,1,.3,1) both;
+}
+
+.slide.active .visual img {
+  animation: cinematicImage 12s ease-in-out infinite alternate;
+}
+
+.slide.active .event {
+  animation: cinematicCard .65s cubic-bezier(.16,1,.3,1) both;
+}
+
+.slide.active .event:nth-child(2) { animation-delay: .1s; }
+.slide.active .event:nth-child(3) { animation-delay: .2s; }
+.slide.active .event:nth-child(4) { animation-delay: .3s; }
+
+.slide.active .person {
+  animation: cinematicCard .7s cubic-bezier(.16,1,.3,1) both;
+}
+
+.slide.active .person:nth-child(2) { animation-delay: .1s; }
+.slide.active .person:nth-child(3) { animation-delay: .2s; }
+.slide.active .person:nth-child(4) { animation-delay: .3s; }
+
+.slide.active .member {
+  animation: cinematicCard .7s cubic-bezier(.16,1,.3,1) both;
+}
+
+.slide.active .member:nth-child(2) { animation-delay: .1s; }
+.slide.active .member:nth-child(3) { animation-delay: .2s; }
+.slide.active .member:nth-child(4) { animation-delay: .3s; }
+
+.slide.active .members-stamp {
+  animation: cinematicStamp 1s cubic-bezier(.16,1,.3,1) both;
+}
+
+/* Efek cahaya bergerak pada bingkai gambar */
+.visual {
+  isolation: isolate;
+  transform-style: preserve-3d;
+  transition:
+    transform .45s cubic-bezier(.2,.7,.2,1),
+    border-color .4s ease,
+    box-shadow .4s ease;
+}
+
+.visual:hover {
+  transform: perspective(900px) rotateY(-2deg) translateY(-3px);
+  border-color: rgba(232,185,109,.7);
+  box-shadow:
+    0 1.5rem 3rem rgba(0,0,0,.3),
+    0 0 1.5rem rgba(228,77,50,.08);
+}
+
+.visual::after {
+  background:
+    linear-gradient(
+      115deg,
+      transparent 25%,
+      rgba(255,255,255,.09) 48%,
+      transparent 70%
+    );
+  background-size: 240% 100%;
+}
+
+.slide.active .visual::after {
+  animation: cinematicSheen 1.5s .2s ease-out both;
+}
+
+/* Tombol navigasi terasa lebih responsif */
+.nav-buttons button {
+  transition:
+    transform .25s ease,
+    background .25s ease,
+    border-color .25s ease,
+    box-shadow .25s ease;
+}
+
+.nav-buttons button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 1.2rem rgba(228,77,50,.25);
+}
+
+.nav-buttons button:active {
+  transform: scale(.9);
+}
+
+.progress-fill {
+  transition: width .65s cubic-bezier(.16,1,.3,1);
+}
+
+/* === ANIMATION KEYFRAMES === */
+@keyframes cinematicHeading {
+  0% {
+    opacity: 0;
+    transform: translate3d(0,24px,0) scale(.97);
+    filter: blur(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0,0,0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes cinematicKicker {
+  0% {
+    opacity: 0;
+    transform: translateX(-18px);
+    letter-spacing: .35em;
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+    letter-spacing: .18em;
+  }
+}
+
+@keyframes cinematicText {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cinematicRule {
+  from {
+    opacity: 0;
+    transform: scaleX(.15);
+    transform-origin: left;
+  }
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+@keyframes cinematicVisual {
+  from {
+    opacity: 0;
+    transform: perspective(1000px) translate3d(0,20px,-50px) rotateY(4deg) scale(.96);
+    filter: blur(5px);
+  }
+  to {
+    opacity: 1;
+    transform: perspective(1000px) translate3d(0,0,0) rotateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes cinematicImage {
+  from { transform: scale(1); }
+  to { transform: scale(1.07) translateX(-.5%); }
+}
+
+@keyframes cinematicCard {
+  from {
+    opacity: 0;
+    transform: translate3d(0,22px,0) rotateX(5deg) scale(.97);
+    filter: blur(3px);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0,0,0) rotateX(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes cinematicStamp {
+  0% {
+    opacity: 0;
+    transform: scale(.65) rotate(-15deg);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.06) rotate(3deg);
+  }
+  100% {
+    transform: scale(1) rotate(0);
+  }
+}
+
+@keyframes cinematicSheen {
+  from { background-position: 140% 0; }
+  to { background-position: -140% 0; }
+}
+
+/* === RESPONSIVE ANIMATION SAFETY === */
+@media (max-height: 700px) {
+  .slide.active .visual {
+    animation-duration: .6s;
+  }
+}
+
+@media (max-height: 600px) {
+  .slide.active h1,
+  .slide.active h2 {
+    animation-duration: .55s;
+  }
+
+  .slide.active .person,
+  .slide.active .member,
+  .slide.active .event {
+    animation-duration: .45s;
+  }
+}
+
+@media (max-height: 500px) {
+  .slide.active .visual img {
+    animation: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .slide,
+  .slide.active {
+    filter: none;
+  }
+}
 </style>
 </head>
 <body>
@@ -207,11 +502,153 @@ class SlidePresentation{
   const draw=()=>{ctx.clearRect(0,0,w,h);if(!reduced){frame++;for(const e of embers){e.y-=e.v;e.x+=e.drift+Math.sin(frame*.009+e.phase)*.13;if(e.y< -8){e.y=h+8;e.x=Math.random()*w;}if(e.x<0)e.x=w;if(e.x>w)e.x=0;const pulse=.55+.45*Math.sin(frame*.025+e.phase);ctx.beginPath();ctx.fillStyle=`rgba(232,185,109,${e.a*pulse})`;ctx.shadowColor='rgba(228,77,50,.7)';ctx.shadowBlur=7;ctx.arc(e.x,e.y,e.r*pulse,0,Math.PI*2);ctx.fill();}ctx.shadowBlur=0;}requestAnimationFrame(draw);};requestAnimationFrame(draw);
   this.deck.addEventListener('pointermove',e=>{if(e.pointerType==='touch')return;const r=this.deck.getBoundingClientRect();this.deck.style.setProperty('--pointer-x',`${((e.clientX-r.left)/r.width)*100}%`);this.deck.style.setProperty('--pointer-y',`${((e.clientY-r.top)/r.height)*100}%`);},{passive:true});
  }
- buildDots(){this.slides.forEach((s,i)=>{const b=document.createElement('button');b.setAttribute('aria-label',`Buka slide ${i+1}`);b.addEventListener('click',()=>this.go(i));this.dots.appendChild(b)});this.dotButtons=[...this.dots.querySelectorAll('button')];}
- go(i){this.index=Math.max(0,Math.min(this.slides.length-1,i));this.update();}
- update(){this.slides.forEach((s,i)=>s.classList.toggle('active',i===this.index));this.dotButtons.forEach((d,i)=>d.classList.toggle('active',i===this.index));this.counter.textContent=`${String(this.index+1).padStart(2,'0')} / ${String(this.slides.length).padStart(2,'0')}`;this.fill.style.width=`${((this.index+1)/this.slides.length)*100}%`;const current=this.slides[this.index];document.title=`${String(this.index+1).padStart(2,'0')} — ${current.querySelector('h1,h2')?.innerText.replace(/\n/g,' ')||'Sejarah Indonesia'}`;this.deck.style.setProperty('--pointer-x',`${38+(this.index%4)*8}%`);this.deck.style.setProperty('--pointer-y',`${24+(this.index%3)*19}%`);if(this.flash){this.flash.classList.remove('fire');void this.flash.offsetWidth;this.flash.classList.add('fire');}}
- next(){this.go(this.index+1)}prev(){this.go(this.index-1)}
- bind(){document.getElementById('next').addEventListener('click',()=>this.next());document.getElementById('prev').addEventListener('click',()=>this.prev());document.addEventListener('keydown',e=>{if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();this.next()}if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();this.prev()}if(e.key.toLowerCase()==='f'){if(!document.fullscreenElement)document.documentElement.requestFullscreen?.();else document.exitFullscreen?.()}if(e.key==='Home')this.go(0);if(e.key==='End')this.go(this.slides.length-1)});let wheelLock=false;document.addEventListener('wheel',e=>{if(wheelLock)return;wheelLock=true;if(e.deltaY>20)this.next();else if(e.deltaY< -20)this.prev();setTimeout(()=>wheelLock=false,700)},{passive:true});document.addEventListener('touchstart',e=>{this.touchY=e.changedTouches[0].screenY},{passive:true});document.addEventListener('touchend',e=>{const d=this.touchY-e.changedTouches[0].screenY;if(Math.abs(d)>55){d>0?this.next():this.prev()}},{passive:true});}
+ buildDots() {
+  this.slides.forEach((s, i) => {
+    const b = document.createElement('button');
+    b.setAttribute('aria-label', `Buka slide ${i + 1}`);
+    b.addEventListener('click', () => this.go(i));
+    this.dots.appendChild(b);
+  });
+
+  this.dotButtons = [...this.dots.querySelectorAll('button')];
+}
+
+go(i) {
+  const nextIndex = Math.max(0, Math.min(this.slides.length - 1, i));
+
+  if (nextIndex === this.index) return;
+
+  this.index = nextIndex;
+  this.update();
+}
+
+update() {
+  this.slides.forEach((slide, i) => {
+    const isActive = i === this.index;
+
+    slide.classList.toggle('active', isActive);
+    slide.setAttribute('aria-hidden', String(!isActive));
+
+    if (isActive) {
+      // Memulai ulang animasi elemen di dalam slide aktif
+      slide.classList.remove('animate-in');
+      void slide.offsetWidth;
+      slide.classList.add('animate-in');
+    } else {
+      slide.classList.remove('animate-in');
+    }
+  });
+
+  this.dotButtons.forEach((dot, i) => {
+    dot.classList.toggle('active', i === this.index);
+    dot.setAttribute('aria-current', i === this.index ? 'step' : 'false');
+  });
+
+  this.counter.textContent =
+    `${String(this.index + 1).padStart(2, '0')} / ` +
+    `${String(this.slides.length).padStart(2, '0')}`;
+
+  this.fill.style.width =
+    `${((this.index + 1) / this.slides.length) * 100}%`;
+
+  const current = this.slides[this.index];
+
+  document.title =
+    `${String(this.index + 1).padStart(2, '0')} — ` +
+    `${current.querySelector('h1,h2')?.innerText.replace(/\n/g, ' ') || 'Sejarah Indonesia'}`;
+
+  this.deck.style.setProperty(
+    '--pointer-x',
+    `${38 + (this.index % 4) * 8}%`
+  );
+
+  this.deck.style.setProperty(
+    '--pointer-y',
+    `${24 + (this.index % 3) * 19}%`
+  );
+
+  if (this.flash) {
+    this.flash.classList.remove('fire');
+    void this.flash.offsetWidth;
+    this.flash.classList.add('fire');
+  }
+}
+
+next() {
+  this.go(this.index + 1);
+}
+
+prev() {
+  this.go(this.index - 1);
+}
+
+bind() {
+  document.getElementById('next')
+    .addEventListener('click', () => this.next());
+
+  document.getElementById('prev')
+    .addEventListener('click', () => this.prev());
+
+  document.addEventListener('keydown', e => {
+    if (['ArrowRight', 'PageDown', ' '].includes(e.key)) {
+      e.preventDefault();
+      this.next();
+    }
+
+    if (['ArrowLeft', 'PageUp'].includes(e.key)) {
+      e.preventDefault();
+      this.prev();
+    }
+
+    if (e.key.toLowerCase() === 'f') {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen?.();
+      } else {
+        document.exitFullscreen?.();
+      }
+    }
+
+    if (e.key === 'Home') this.go(0);
+    if (e.key === 'End') this.go(this.slides.length - 1);
+  });
+
+  let wheelLock = false;
+
+  document.addEventListener('wheel', e => {
+    if (wheelLock) return;
+
+    if (Math.abs(e.deltaY) < 20) return;
+
+    wheelLock = true;
+
+    if (e.deltaY > 0) this.next();
+    else this.prev();
+
+    setTimeout(() => {
+      wheelLock = false;
+    }, 750);
+  }, { passive: true });
+
+  let touchStartX = 0;
+  let touchStartY = 0;
+
+  document.addEventListener('touchstart', e => {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+  }, { passive: true });
+
+  document.addEventListener('touchend', e => {
+    const dx = touchStartX - e.changedTouches[0].screenX;
+    const dy = touchStartY - e.changedTouches[0].screenY;
+
+    if (Math.abs(dx) > 65 && Math.abs(dx) > Math.abs(dy)) {
+      if (dx > 0) this.next();
+      else this.prev();
+    } else if (Math.abs(dy) > 75) {
+      if (dy > 0) this.next();
+      else this.prev();
+    }
+  }, { passive: true });
 }
 new SlidePresentation();
 </script>

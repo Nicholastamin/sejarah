@@ -916,4 +916,115 @@ p { max-width: 76ch; margin-bottom: .8rem; }
     transition: none;
   }
 }
+/* ===== 3D PRESENTATION MODE ===== */
 
+.deck {
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+/* Transisi sinematik otomatis setiap slide aktif */
+.slide.active {
+  animation: stageReveal .8s cubic-bezier(.2,.75,.25,1) both;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+@keyframes stageReveal {
+  from {
+    opacity: 0;
+    transform: perspective(1200px) translateZ(-100px) scale(.92);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: perspective(1200px) translateZ(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* Judul muncul bertahap */
+.slide.active h1,
+.slide.active h2 {
+  animation: titleReveal .9s .12s both;
+}
+
+@keyframes titleReveal {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 25px, 0);
+    letter-spacing: .12em;
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    letter-spacing: normal;
+  }
+}
+
+/* Gambar memiliki kedalaman dan gerakan pelan */
+.slide.active .visual img,
+.slide.active .cover-art img {
+  animation: imageDepth 8s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes imageDepth {
+  from {
+    transform: scale(1.02) translate3d(-.5%, 0, 0);
+  }
+  to {
+    transform: scale(1.09) translate3d(.5%, -1%, 0);
+  }
+}
+
+/* Cahaya panggung bergerak otomatis */
+.deck::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at 80% 15%,
+    rgba(232, 185, 109, .10),
+    transparent 42%
+  );
+  animation: stageLight 9s ease-in-out infinite alternate;
+}
+
+@keyframes stageLight {
+  from {
+    opacity: .35;
+    transform: translate3d(-3%, 1%, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(3%, -1%, 0);
+  }
+}
+
+/* Gerakan tetap halus pada iPhone */
+@media (max-width: 700px) {
+  .slide.active {
+    animation-duration: .65s;
+  }
+
+  .slide.active .visual img,
+  .slide.active .cover-art img {
+    animation-duration: 10s;
+  }
+}
+
+/* Hormati pengaturan aksesibilitas */
+@media (prefers-reduced-motion: reduce) {
+  .slide.active,
+  .slide.active h1,
+  .slide.active h2,
+  .slide.active .visual img,
+  .slide.active .cover-art img,
+  .deck::after {
+    animation: none !important;
+    filter: none;
+  }
+}

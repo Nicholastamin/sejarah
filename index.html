@@ -1,401 +1,28 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Api Kemerdekaan — Sejarah Perjuangan Indonesia</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700;800&display=swap" rel="stylesheet">
-<style>
-/* === VIEWPORT BASE / RESPONSIVE === */
-:root{--ink:#f5efe4;--muted:#c4b8a8;--paper:#151514;--panel:#20201d;--red:#e44d32;--gold:#e8b96d;--line:rgba(245,239,228,.16);--pad:clamp(1.1rem,4.5vw,4.5rem);--display:clamp(2.4rem,7.4vw,7rem);--h2:clamp(2rem,4.5vw,4.6rem);--body:clamp(.92rem,1.25vw,1.15rem);--small:clamp(.7rem,.9vw,.84rem)}
-*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif}body{overflow:hidden}button{font:inherit}.deck{height:100vh;height:100dvh;position:relative;overflow:hidden;background:radial-gradient(ellipse at 82% 12%,rgba(228,77,50,.15),transparent 34%),radial-gradient(ellipse at 8% 90%,rgba(232,185,109,.07),transparent 30%),var(--paper)}.deck:before{content:'';position:absolute;inset:0;pointer-events:none;z-index:1;opacity:.12;background-image:linear-gradient(rgba(245,239,228,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(245,239,228,.08) 1px,transparent 1px);background-size:clamp(2.2rem,4vw,4.5rem) clamp(2.2rem,4vw,4.5rem);mask-image:linear-gradient(to bottom,black,transparent 85%)}
-.slide{height:100vh;height:100dvh;width:100%;position:absolute;inset:0;overflow:hidden;padding:clamp(4.4rem,8vh,6rem) var(--pad) clamp(4.5rem,9vh,6.5rem);display:flex;flex-direction:column;justify-content:center;opacity:0;visibility:hidden;transform:translateY(clamp(1rem,3vh,2rem)) scale(.99);transition:opacity .55s ease,transform .65s cubic-bezier(.2,.75,.2,1),visibility .55s;background:transparent}
-.slide.active{opacity:1;visibility:visible;transform:none;z-index:2}.slide:before{content:'';position:absolute;left:var(--pad);right:var(--pad);top:clamp(3.4rem,6vh,4.5rem);height:1px;background:var(--line)}.slide:after{content:attr(data-number);position:absolute;right:var(--pad);top:clamp(1.5rem,3vh,2.2rem);font:500 var(--small) 'DM Mono',monospace;color:var(--gold);letter-spacing:.12em}
-.kicker{font:500 var(--small) 'DM Mono',monospace;text-transform:uppercase;letter-spacing:.18em;color:var(--gold);margin:0 0 clamp(.6rem,1.6vh,1.2rem)}h1,h2,h3,p{margin-top:0}h1,h2,h3{font-family:'Playfair Display',serif;font-weight:600;letter-spacing:-.035em}h1{font-size:var(--display);line-height:.95;max-width:12ch;margin-bottom:clamp(1rem,2.5vh,2rem)}h2{font-size:var(--h2);line-height:1.02;max-width:18ch;margin-bottom:clamp(.8rem,2vh,1.5rem)}h3{font-size:clamp(1.2rem,2vw,1.7rem);margin-bottom:.5rem}p,li{font-size:var(--body);line-height:1.72;color:#e4dbce}p{max-width:76ch;margin-bottom:.8rem}.accent{color:var(--red)}.gold{color:var(--gold)}.muted{color:var(--muted)}.rule{height:3px;width:clamp(3rem,8vw,7rem);background:var(--red);margin:clamp(.8rem,2vh,1.5rem) 0}.cover{background:linear-gradient(115deg,rgba(18,18,17,.98) 0%,rgba(18,18,17,.88) 53%,rgba(18,18,17,.38) 100%)}.cover-art{position:absolute;right:-3vw;top:15%;width:48vw;height:70%;border:1px solid rgba(232,185,109,.22);transform:rotate(7deg);opacity:.75;pointer-events:none}.cover-art:before,.cover-art:after{content:'';position:absolute;inset:8%;border:1px solid rgba(228,77,50,.55);transform:rotate(-13deg)}.cover-art:after{inset:20%;border-color:rgba(232,185,109,.4);transform:rotate(20deg)}.cover .subtitle{font-size:clamp(1rem,1.7vw,1.4rem);color:var(--muted);max-width:42ch}.cover .year{font:500 clamp(.8rem,1vw,1rem) 'DM Mono',monospace;letter-spacing:.18em;color:var(--gold);margin-top:clamp(1rem,3vh,2rem)}
-.content-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(15rem,.8fr);gap:clamp(1.2rem,4vw,4rem);align-items:center;min-height:0}.copy{min-width:0}.copy p+p{margin-top:.8rem}.visual{position:relative;min-height:clamp(13rem,42vh,28rem);height:100%;max-height:52vh;border:1px solid rgba(232,185,109,.28);background:radial-gradient(ellipse at 50% 20%,rgba(228,77,50,.14),transparent 60%),linear-gradient(145deg,#282621,#171715);overflow:hidden;display:flex;align-items:center;justify-content:center;box-shadow:0 1.2rem 3rem rgba(0,0,0,.18)}.visual:before{content:'';position:absolute;inset:1rem;border:1px solid rgba(245,239,228,.1);z-index:2;pointer-events:none}.visual img{width:100%;height:100%;max-height:min(50vh,400px);object-fit:cover;display:block;position:absolute;inset:0}.visual .placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:1.5rem;color:#9f9586}.placeholder strong{font:500 clamp(1rem,1.5vw,1.4rem) 'DM Mono',monospace;color:var(--gold);margin-bottom:.6rem}.placeholder span{font-size:var(--small);max-width:25ch;line-height:1.6}.visual img:not([src=""]){z-index:1}.visual:after{content:'';position:absolute;inset:0;border:clamp(.4rem,1vw,.8rem) solid rgba(21,21,20,.12);pointer-events:none;z-index:2}.visual figcaption{position:absolute;z-index:3;left:1rem;bottom:1rem;background:rgba(18,18,17,.8);padding:.5rem .7rem;font:var(--small) 'DM Mono',monospace;color:var(--ink)}
-.timeline{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(.7rem,1.5vw,1.5rem);margin-top:clamp(1rem,3vh,2rem)}.event{border-top:2px solid var(--red);padding-top:.8rem}.event time{font:500 var(--small) 'DM Mono',monospace;color:var(--gold);display:block;margin-bottom:.5rem}.event p{font-size:clamp(.82rem,1.05vw,1rem);line-height:1.5;margin:0}.event h3{font-size:clamp(1rem,1.5vw,1.35rem)}.body-copy{columns:2;column-gap:clamp(1.5rem,4vw,4rem)}.body-copy p{break-inside:avoid}.figure-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(.7rem,1.5vw,1.4rem);margin-top:clamp(.8rem,2vh,1.3rem)}.person{min-width:0;border-top:1px solid var(--line);padding-top:.7rem;transition:transform .3s ease,border-color .3s ease}.person:hover{transform:translateY(-4px);border-color:rgba(232,185,109,.65)}.person .visual{min-height:0;height:clamp(8rem,24vh,14rem);margin-bottom:.8rem}.person .visual img{max-height:none}.person h3{font-size:clamp(1rem,1.45vw,1.35rem)}.person p{font-size:clamp(.78rem,1vw,.95rem);line-height:1.5}.tag{display:inline-block;border:1px solid rgba(232,185,109,.45);color:var(--gold);font:var(--small) 'DM Mono',monospace;letter-spacing:.06em;padding:.3rem .5rem;margin-bottom:.55rem}.section-slide{background:linear-gradient(120deg,rgba(228,77,50,.12),transparent 60%)}.section-slide h2{font-size:clamp(2.6rem,8vw,7rem);max-width:11ch}.section-slide .section-num{font:500 clamp(3.8rem,13vw,12rem) 'DM Mono',monospace;line-height:.8;color:rgba(228,77,50,.22);position:absolute;right:var(--pad);bottom:10%;letter-spacing:-.12em}.bottom-note{font:var(--small) 'DM Mono',monospace;color:var(--muted);margin-top:clamp(.8rem,2vh,1.4rem)}
-/* === GROUP MEMBERS SLIDE === */
-.members-slide{background:radial-gradient(ellipse at 80% 40%,rgba(228,77,50,.13),transparent 40%),transparent}
-.members-layout{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(1.5rem,5vw,5rem);align-items:center;min-height:0}
-.members-stamp{width:clamp(9rem,20vw,17rem);aspect-ratio:1;border:1px solid rgba(232,185,109,.45);border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative;margin:0 auto;color:var(--gold);font:500 clamp(2.5rem,6vw,5.8rem) 'DM Mono',monospace;letter-spacing:-.12em;box-shadow:0 0 0 1rem rgba(232,185,109,.025),0 0 0 2rem rgba(232,185,109,.018)}
-.members-stamp:before,.members-stamp:after{content:'';position:absolute;inset:10%;border:1px solid rgba(228,77,50,.55);border-radius:50%;transform:rotate(25deg) scaleX(.72)}.members-stamp:after{inset:-12%;border-color:rgba(245,239,228,.12);transform:rotate(-30deg) scaleX(.85)}
-.member-list{display:grid;grid-template-columns:1fr 1fr;gap:clamp(.7rem,1.4vw,1.25rem)}.member{padding:clamp(.85rem,1.7vw,1.35rem);border:1px solid var(--line);background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.012));min-height:clamp(6rem,14vh,8.5rem);display:flex;flex-direction:column;justify-content:space-between;gap:.8rem;transition:transform .3s ease,border-color .3s ease}.member:hover{transform:translateY(-3px);border-color:rgba(232,185,109,.55)}.member .num{font:500 var(--small) 'DM Mono',monospace;color:var(--red);letter-spacing:.12em}.member strong{font-size:clamp(.95rem,1.45vw,1.28rem);line-height:1.3;font-weight:600;color:var(--ink)}.member .initials{font:500 var(--small) 'DM Mono',monospace;color:var(--muted);letter-spacing:.08em}
-@media(max-width:800px){.members-layout{grid-template-columns:1fr;gap:1rem}.members-stamp{width:clamp(5rem,15vh,7rem);font-size:clamp(1.8rem,5vh,2.8rem)}.members-stamp:before{inset:8%}.members-stamp:after{inset:-8%}.members-layout .members-intro h2{font-size:clamp(1.8rem,5vw,3rem);margin-bottom:.4rem}.member-list{gap:.6rem}.member{min-height:5rem;padding:.7rem}.member strong{font-size:clamp(.8rem,2.6vw,1rem)}}
-/* === NAVIGATION === */
-.hud{position:fixed;z-index:20;left:var(--pad);right:var(--pad);bottom:clamp(.8rem,2vh,1.4rem);display:flex;align-items:center;gap:clamp(.7rem,1.5vw,1.5rem)}.progress{height:2px;background:rgba(245,239,228,.15);flex:1;overflow:hidden}.progress-fill{height:100%;width:0;background:var(--red);transition:width .35s}.counter{font:var(--small) 'DM Mono',monospace;color:var(--muted);white-space:nowrap}.nav-buttons{display:flex;gap:.45rem}.nav-buttons button{width:clamp(2.2rem,3.2vw,2.8rem);height:clamp(2.2rem,3.2vw,2.8rem);border:1px solid var(--line);color:var(--ink);background:#20201d;cursor:pointer;transition:background .2s,border-color .2s}.nav-buttons button:hover{background:var(--red);border-color:var(--red)}.dots{position:fixed;z-index:20;right:clamp(.4rem,1.1vw,1rem);top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:.45rem}.dots button{width:5px;height:clamp(1rem,2.3vh,1.5rem);padding:0;border:0;background:rgba(245,239,228,.22);cursor:pointer}.dots button.active{background:var(--red)}.hint{position:fixed;z-index:20;left:var(--pad);top:clamp(1.5rem,3vh,2.2rem);font:var(--small) 'DM Mono',monospace;color:var(--muted);letter-spacing:.05em}
-.reveal{opacity:0;transform:translateY(18px);transition:opacity .65s ease,transform .65s ease}.active .reveal{opacity:1;transform:none}.active .reveal:nth-child(2){transition-delay:.08s}.active .reveal:nth-child(3){transition-delay:.16s}.active .reveal:nth-child(4){transition-delay:.24s}
-@media(max-width:800px){.content-grid{grid-template-columns:1fr;gap:1rem}.content-grid .visual{min-height:clamp(9rem,24vh,14rem);max-height:27vh;order:-1}.content-grid h2{max-width:22ch}.body-copy{columns:1}.figure-grid{grid-template-columns:repeat(2,minmax(0,1fr));overflow:auto;max-height:55vh}.person .visual{height:clamp(7rem,20vh,10rem)}.dots{display:none}.slide{padding-top:4.7rem;padding-bottom:5.2rem}.timeline{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:1rem}.timeline p{font-size:clamp(.78rem,2.4vw,.98rem)}}
-@media(max-height:600px){.slide{padding-top:3.7rem;padding-bottom:3.8rem}.slide:before{top:2.9rem}.hint{top:.9rem}.slide:after{top:.9rem}h1{font-size:clamp(2.1rem,6vw,4.5rem)}h2{font-size:clamp(1.7rem,4vw,3rem)}p{line-height:1.5;margin-bottom:.45rem}.visual{min-height:10rem}.content-grid .visual{min-height:9rem;max-height:33vh}.figure-grid{margin-top:.4rem}.person .visual{height:clamp(5rem,18vh,8rem)}.person p{font-size:.76rem}.hud{bottom:.55rem}}
-@media(max-width:500px){:root{--pad:1rem}.cover-art{width:65vw;right:-20vw;opacity:.45}.timeline{gap:.7rem}.event{padding-top:.5rem}.event p{font-size:.78rem}.figure-grid{gap:.8rem}.person h3{font-size:1rem}.person p{font-size:.78rem}.counter{font-size:.65rem}.hint{font-size:.62rem}}
-/* === EXTRA MOTION: cinematic, smooth, and presentation-friendly === */
-.deck:after{content:"";position:absolute;z-index:0;pointer-events:none;width:42vw;height:42vw;right:-12vw;top:-20vw;border-radius:50%;background:radial-gradient(circle,rgba(228,77,50,.11),rgba(232,185,109,.035) 38%,transparent 70%);filter:blur(10px);animation:ambientDrift 14s ease-in-out infinite alternate}
-.cover-art{transform-origin:center;animation:coverFloat 11s ease-in-out infinite alternate}
-.cover-art:before{animation:orbitTilt 17s ease-in-out infinite alternate}
-.cover-art:after{animation:orbitTilt 13s ease-in-out infinite alternate-reverse}
-.active .reveal{animation:revealRise .8s cubic-bezier(.2,.7,.2,1) both}
-.active .reveal:nth-child(2){animation-delay:.10s}
-.active .reveal:nth-child(3){animation-delay:.20s}
-.active .reveal:nth-child(4){animation-delay:.30s}
-.active .reveal:nth-child(5){animation-delay:.40s}
-.active .visual img{animation:photoDrift 12s ease-in-out infinite alternate}
-.visual:before{animation:frameGlow 5s ease-in-out infinite alternate}
-.active .timeline .event{animation:revealRise .65s ease both}
-.active .timeline .event:nth-child(2){animation-delay:.12s}
-.active .timeline .event:nth-child(3){animation-delay:.24s}
-.active .timeline .event:nth-child(4){animation-delay:.36s}
-.active .member{animation:revealRise .65s ease both}
-.active .member:nth-child(2){animation-delay:.10s}
-.active .member:nth-child(3){animation-delay:.20s}
-.active .member:nth-child(4){animation-delay:.30s}
-.section-slide .section-num{animation:numberFloat 7s ease-in-out infinite alternate}
-.rule{position:relative;overflow:hidden}
-.rule:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.8),transparent);transform:translateX(-110%);animation:ruleSweep 4s ease-in-out infinite}
-.nav-buttons button{position:relative;overflow:hidden}
-.nav-buttons button:active{transform:scale(.94)}
-@keyframes revealRise{from{opacity:0;transform:translateY(24px) scale(.985);filter:blur(3px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
-@keyframes coverFloat{0%{transform:translate3d(0,0,0) rotate(7deg)}100%{transform:translate3d(-1.2vw,1.5vh,0) rotate(10deg)}}
-@keyframes orbitTilt{0%{translate:0 0;rotate:-3deg}100%{translate:1.3% -1%;rotate:4deg}}
-@keyframes ambientDrift{0%{transform:translate3d(0,0,0) scale(.9);opacity:.65}100%{transform:translate3d(-8vw,9vh,0) scale(1.18);opacity:1}}
-@keyframes photoDrift{0%{transform:scale(1) translateX(0)}100%{transform:scale(1.055) translateX(-.5%)}}
-@keyframes frameGlow{0%{border-color:rgba(245,239,228,.08)}100%{border-color:rgba(232,185,109,.32)}}
-@keyframes numberFloat{0%{transform:translateY(0);opacity:.55}100%{transform:translateY(-10px);opacity:1}}
-@keyframes ruleSweep{0%,55%{transform:translateX(-110%)}80%,100%{transform:translateX(110%)}}
-@media(prefers-reduced-motion:reduce){.deck:after,.cover-art,.cover-art:before,.cover-art:after,.active .reveal,.active .visual img,.visual:before,.active .timeline .event,.active .member,.section-slide .section-num,.rule:after{animation:none!important}}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}.reveal{opacity:1;transform:none}}
-
-/* === CINEMATIC MOTION LAYER v2 === */
-.cinema-flash{position:fixed;inset:0;z-index:15;pointer-events:none;opacity:0;background:linear-gradient(110deg,transparent 25%,rgba(232,185,109,.08) 48%,rgba(228,77,50,.055) 52%,transparent 75%);transform:translateX(-100%)}.cinema-flash.fire{animation:cinemaSweep .75s cubic-bezier(.2,.7,.2,1) both}@keyframes cinemaSweep{0%{opacity:0;transform:translateX(-100%)}20%{opacity:1}100%{opacity:0;transform:translateX(100%)}}
-.deck{--pointer-x:72%;--pointer-y:30%;background:radial-gradient(ellipse at var(--pointer-x) var(--pointer-y),rgba(228,77,50,.105),transparent 31%),radial-gradient(ellipse at 82% 12%,rgba(228,77,50,.13),transparent 34%),radial-gradient(ellipse at 8% 90%,rgba(232,185,109,.065),transparent 30%),var(--paper);transition:background-position .8s ease}
-.deck:before{animation:gridBreath 12s ease-in-out infinite alternate}
-.deck .cinema-embers{position:absolute;inset:0;width:100%;height:100%;z-index:4;pointer-events:none;opacity:.58;mix-blend-mode:screen}
-.deck .cinema-vignette{position:absolute;inset:0;z-index:3;pointer-events:none;background:radial-gradient(ellipse at center,transparent 45%,rgba(0,0,0,.24) 100%)}
-.slide.active h1,.slide.active h2{animation:titleCinematic .9s cubic-bezier(.16,1,.3,1) both}
-.slide.active .visual{animation:visualArrive .9s cubic-bezier(.2,.7,.2,1) both;box-shadow:0 1.2rem 3rem rgba(0,0,0,.22),0 0 0 1px rgba(232,185,109,.025)}
-.slide.active .visual:after{background:linear-gradient(115deg,transparent 15%,rgba(255,255,255,.07) 48%,transparent 70%);background-size:220% 100%;animation:photoSheen 1.4s .35s ease-out both}
-.slide.active .person{animation:revealRise .65s ease both}
-.slide.active .person:nth-child(2){animation-delay:.12s}.slide.active .person:nth-child(3){animation-delay:.24s}.slide.active .person:nth-child(4){animation-delay:.36s}
-.slide.active .tag{animation:tagPop .5s .28s cubic-bezier(.2,.8,.2,1) both}
-.slide.active .members-stamp{animation:stampReveal 1s cubic-bezier(.16,1,.3,1) both}
-.progress-fill{position:relative;overflow:hidden}.progress-fill:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.8),transparent);animation:progressGleam 2.6s linear infinite}
-.dots button{transition:height .25s ease,background .25s ease,box-shadow .25s ease}.dots button.active{height:2rem;box-shadow:0 0 12px rgba(228,77,50,.35)}
-.nav-buttons button:hover{box-shadow:0 0 18px rgba(228,77,50,.2)}
-@keyframes titleCinematic{0%{opacity:0;transform:translateY(18px);letter-spacing:-.055em;filter:blur(5px)}100%{opacity:1;transform:translateY(0);letter-spacing:-.035em;filter:blur(0)}}
-@keyframes visualArrive{0%{opacity:.3;transform:translateY(12px) scale(.975);filter:saturate(.65)}100%{opacity:1;transform:translateY(0) scale(1);filter:saturate(1)}}
-@keyframes photoSheen{0%{background-position:150% 0}100%{background-position:-120% 0}}
-@keyframes stampReveal{0%{opacity:0;transform:scale(.72) rotate(-18deg)}70%{opacity:1;transform:scale(1.045) rotate(3deg)}100%{transform:scale(1) rotate(0)}}
-@keyframes tagPop{0%{opacity:0;transform:translateY(8px) scale(.96)}100%{opacity:1;transform:translateY(0) scale(1)}}
-@keyframes progressGleam{0%{transform:translateX(-120%)}100%{transform:translateX(250%)}}
-@keyframes gridBreath{0%{opacity:.07}100%{opacity:.15}}
-@media(prefers-reduced-motion:reduce){.deck .cinema-embers,.deck:before,.slide.active h1,.slide.active h2,.slide.active .visual,.slide.active .visual:after,.slide.active .person,.slide.active .tag,.slide.active .members-stamp,.progress-fill:after,.cinema-flash{animation:none!important}}
-/* === CINEMATIC 3D TRANSITIONS === */
-.deck {
-  perspective: 1400px;
-  transform-style: preserve-3d;
-  isolation: isolate;
-}
-
-.slide {
-  backface-visibility: hidden;
-  transform-origin: 50% 50%;
-  transition:
-    opacity .65s cubic-bezier(.22,.61,.36,1),
-    transform .85s cubic-bezier(.16,1,.3,1),
-    filter .65s ease,
-    visibility .65s;
-  filter: blur(5px) saturate(.75);
-  will-change: opacity, transform, filter;
-}
-
-.slide.active {
-  filter: blur(0) saturate(1);
-  transform: translate3d(0,0,0) rotateX(0) rotateY(0) scale(1);
-}
-
-/* Slide keluar dan masuk dengan kedalaman */
-.slide:not(.active) {
-  pointer-events: none;
-}
-
-.slide.active .kicker {
-  animation: cinematicKicker .7s .08s both;
-}
-
-.slide.active h1,
-.slide.active h2 {
-  animation: cinematicHeading .9s cubic-bezier(.16,1,.3,1) both;
-}
-
-.slide.active .rule {
-  animation: cinematicRule .8s .2s both;
-}
-
-.slide.active .subtitle,
-.slide.active .year,
-.slide.active .bottom-note {
-  animation: cinematicText .8s .32s both;
-}
-
-.slide.active .copy p,
-.slide.active .body-copy p {
-  animation: cinematicText .75s both;
-}
-
-.slide.active .copy p:nth-child(2),
-.slide.active .body-copy p:nth-child(2) {
-  animation-delay: .12s;
-}
-
-.slide.active .copy p:nth-child(3),
-.slide.active .body-copy p:nth-child(3) {
-  animation-delay: .22s;
-}
-
-.slide.active .visual {
-  animation: cinematicVisual .95s cubic-bezier(.16,1,.3,1) both;
-}
-
-.slide.active .visual img {
-  animation: cinematicImage 12s ease-in-out infinite alternate;
-}
-
-.slide.active .event {
-  animation: cinematicCard .65s cubic-bezier(.16,1,.3,1) both;
-}
-
-.slide.active .event:nth-child(2) { animation-delay: .1s; }
-.slide.active .event:nth-child(3) { animation-delay: .2s; }
-.slide.active .event:nth-child(4) { animation-delay: .3s; }
-
-.slide.active .person {
-  animation: cinematicCard .7s cubic-bezier(.16,1,.3,1) both;
-}
-
-.slide.active .person:nth-child(2) { animation-delay: .1s; }
-.slide.active .person:nth-child(3) { animation-delay: .2s; }
-.slide.active .person:nth-child(4) { animation-delay: .3s; }
-
-.slide.active .member {
-  animation: cinematicCard .7s cubic-bezier(.16,1,.3,1) both;
-}
-
-.slide.active .member:nth-child(2) { animation-delay: .1s; }
-.slide.active .member:nth-child(3) { animation-delay: .2s; }
-.slide.active .member:nth-child(4) { animation-delay: .3s; }
-
-.slide.active .members-stamp {
-  animation: cinematicStamp 1s cubic-bezier(.16,1,.3,1) both;
-}
-
-/* Efek cahaya bergerak pada bingkai gambar */
-.visual {
-  isolation: isolate;
-  transform-style: preserve-3d;
-  transition:
-    transform .45s cubic-bezier(.2,.7,.2,1),
-    border-color .4s ease,
-    box-shadow .4s ease;
-}
-
-.visual:hover {
-  transform: perspective(900px) rotateY(-2deg) translateY(-3px);
-  border-color: rgba(232,185,109,.7);
-  box-shadow:
-    0 1.5rem 3rem rgba(0,0,0,.3),
-    0 0 1.5rem rgba(228,77,50,.08);
-}
-
-.visual::after {
-  background:
-    linear-gradient(
-      115deg,
-      transparent 25%,
-      rgba(255,255,255,.09) 48%,
-      transparent 70%
-    );
-  background-size: 240% 100%;
-}
-
-.slide.active .visual::after {
-  animation: cinematicSheen 1.5s .2s ease-out both;
-}
-
-/* Tombol navigasi terasa lebih responsif */
-.nav-buttons button {
-  transition:
-    transform .25s ease,
-    background .25s ease,
-    border-color .25s ease,
-    box-shadow .25s ease;
-}
-
-.nav-buttons button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 0 1.2rem rgba(228,77,50,.25);
-}
-
-.nav-buttons button:active {
-  transform: scale(.9);
-}
-
-.progress-fill {
-  transition: width .65s cubic-bezier(.16,1,.3,1);
-}
-
-/* === ANIMATION KEYFRAMES === */
-@keyframes cinematicHeading {
-  0% {
-    opacity: 0;
-    transform: translate3d(0,24px,0) scale(.97);
-    filter: blur(8px);
-  }
-  100% {
-    opacity: 1;
-    transform: translate3d(0,0,0) scale(1);
-    filter: blur(0);
-  }
-}
-
-@keyframes cinematicKicker {
-  0% {
-    opacity: 0;
-    transform: translateX(-18px);
-    letter-spacing: .35em;
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-    letter-spacing: .18em;
-  }
-}
-
-@keyframes cinematicText {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes cinematicRule {
-  from {
-    opacity: 0;
-    transform: scaleX(.15);
-    transform-origin: left;
-  }
-  to {
-    opacity: 1;
-    transform: scaleX(1);
-    transform-origin: left;
-  }
-}
-
-@keyframes cinematicVisual {
-  from {
-    opacity: 0;
-    transform: perspective(1000px) translate3d(0,20px,-50px) rotateY(4deg) scale(.96);
-    filter: blur(5px);
-  }
-  to {
-    opacity: 1;
-    transform: perspective(1000px) translate3d(0,0,0) rotateY(0) scale(1);
-    filter: blur(0);
-  }
-}
-
-@keyframes cinematicImage {
-  from { transform: scale(1); }
-  to { transform: scale(1.07) translateX(-.5%); }
-}
-
-@keyframes cinematicCard {
-  from {
-    opacity: 0;
-    transform: translate3d(0,22px,0) rotateX(5deg) scale(.97);
-    filter: blur(3px);
-  }
-  to {
-    opacity: 1;
-    transform: translate3d(0,0,0) rotateX(0) scale(1);
-    filter: blur(0);
-  }
-}
-
-@keyframes cinematicStamp {
-  0% {
-    opacity: 0;
-    transform: scale(.65) rotate(-15deg);
-  }
-  70% {
-    opacity: 1;
-    transform: scale(1.06) rotate(3deg);
-  }
-  100% {
-    transform: scale(1) rotate(0);
-  }
-}
-
-@keyframes cinematicSheen {
-  from { background-position: 140% 0; }
-  to { background-position: -140% 0; }
-}
-
-/* === RESPONSIVE ANIMATION SAFETY === */
-@media (max-height: 700px) {
-  .slide.active .visual {
-    animation-duration: .6s;
-  }
-}
-
-@media (max-height: 600px) {
-  .slide.active h1,
-  .slide.active h2 {
-    animation-duration: .55s;
-  }
-
-  .slide.active .person,
-  .slide.active .member,
-  .slide.active .event {
-    animation-duration: .45s;
-  }
-}
-
-@media (max-height: 500px) {
-  .slide.active .visual img {
-    animation: none;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: .01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: .01ms !important;
-    scroll-behavior: auto !important;
-  }
-
-  .slide,
-  .slide.active {
-    filter: none;
-  }
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#151514">
+  <title>Api Kemerdekaan — Sejarah Perjuangan Indonesia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 </head>
 <body>
 <div class="deck" id="deck">
+
   <!-- SLIDE 01: COVER -->
   <section class="slide cover active" data-number="01 / 14" aria-label="Sampul">
-    <div class="cover-art"></div><p class="kicker reveal">Sejarah Indonesia · 1945—1947</p>
+    <div class="cover-art"></div>
+    <p class="kicker reveal">Sejarah Indonesia · 1945—1947</p>
     <h1 class="reveal">API<br><span class="accent">KEMERDEKAAN</span></h1>
-    <div class="rule reveal"></div><p class="subtitle reveal">Kisah keberanian rakyat mempertahankan kemerdekaan di empat wilayah Indonesia.</p>
+    <div class="rule reveal"></div>
+    <p class="subtitle reveal">Kisah keberanian rakyat mempertahankan kemerdekaan di empat wilayah Indonesia.</p>
     <p class="year reveal">SURABAYA · PALEMBANG · MARGARANA · MAKASSAR</p>
   </section>
-
 
   <!-- SLIDE 02: GROUP MEMBERS -->
   <section class="slide members-slide" data-number="02 / 14" aria-label="Anggota kelompok">
@@ -403,15 +30,31 @@
     <div class="members-layout">
       <div class="members-intro reveal">
         <div class="members-stamp" aria-hidden="true">04</div>
-        <p class="kicker" style="margin-top:clamp(1rem,3vh,2rem)">Empat nama · Satu cerita</p>
+        <p class="kicker members-kicker">Empat nama · Satu cerita</p>
         <h2>Anggota <span class="accent">Kelompok</span></h2>
         <p class="muted">Menelusuri perjuangan rakyat Indonesia dalam mempertahankan kemerdekaan.</p>
       </div>
       <div class="member-list reveal">
-        <article class="member"><span class="num">ANGGOTA 01</span><strong>Nicholas Evan Tamin</strong><span class="initials">NET · PENYUSUN</span></article>
-        <article class="member"><span class="num">ANGGOTA 02</span><strong>Moh Raffi Kaimun</strong><span class="initials">MRK · PENYUSUN</span></article>
-        <article class="member"><span class="num">ANGGOTA 03</span><strong>Daniel Chandra Wijanarko</strong><span class="initials">DCW · PENYUSUN</span></article>
-        <article class="member"><span class="num">ANGGOTA 04</span><strong>Aldrich Reinhard Nyotowinata</strong><span class="initials">ARN · PENYUSUN</span></article>
+        <article class="member">
+          <span class="num">ANGGOTA 01</span>
+          <strong>Nicholas Evan Tamin</strong>
+          <span class="initials">NET · PENYUSUN</span>
+        </article>
+        <article class="member">
+          <span class="num">ANGGOTA 02</span>
+          <strong>Moh Raffi Kaimun</strong>
+          <span class="initials">MRK · PENYUSUN</span>
+        </article>
+        <article class="member">
+          <span class="num">ANGGOTA 03</span>
+          <strong>Daniel Chandra Wijanarko</strong>
+          <span class="initials">DCW · PENYUSUN</span>
+        </article>
+        <article class="member">
+          <span class="num">ANGGOTA 04</span>
+          <strong>Aldrich Reinhard Nyotowinata</strong>
+          <span class="initials">ARN · PENYUSUN</span>
+        </article>
       </div>
     </div>
     <p class="bottom-note">SURABAYA · PALEMBANG · MARGARANA · MAKASSAR</p>
@@ -419,238 +62,247 @@
 
   <!-- SLIDE 03: SURABAYA BACKGROUND -->
   <section class="slide" data-number="03 / 14">
-    <p class="kicker reveal">01 — Surabaya · 10 November 1945</p><div class="content-grid">
-      <div class="copy reveal"><h2>Latar Belakang <span class="accent">Surabaya</span></h2>
+    <p class="kicker reveal">01 — Surabaya · 10 November 1945</p>
+    <div class="content-grid">
+      <div class="copy reveal">
+        <h2>Latar Belakang <span class="accent">Surabaya</span></h2>
         <p>Setelah proklamasi kemerdekaan pada 17 Agustus 1945, pasukan Sekutu tiba di Surabaya pada 25 Oktober. Mereka bertugas melucuti tentara Jepang dan membebaskan tawanan perang, tetapi kedatangannya menimbulkan kekhawatiran karena Belanda ingin kembali berkuasa melalui NICA.</p>
         <p>Ketegangan meningkat setelah berbagai bentrokan dan tewasnya Brigadir Jenderal A.W.S. Mallaby pada 30 Oktober. Pada 9 November, Inggris mengeluarkan ultimatum agar rakyat menyerahkan senjata. Penolakan terhadap ultimatum tersebut menjadi pemicu serangan besar pada 10 November 1945.</p>
       </div>
-      <figure class="visual"><img src="images/surabaya-latar.jpg" alt="Foto latar Pertempuran Surabaya" onerror="this.style.display='none'"><div class="placeholder"><strong>FOTO SURABAYA</strong><span>Tambahkan foto arsip di<br>images/surabaya-latar.jpg</span></div><figcaption>Surabaya, 1945</figcaption></figure>
+      <figure class="visual">
+        <img src="images/surabaya-latar.jpg" alt="Foto latar Pertempuran Surabaya" onerror="this.style.display='none'">
+        <div class="placeholder"><strong>FOTO SURABAYA</strong><span>Tambahkan foto arsip di<br>images/surabaya-latar.jpg</span></div>
+        <figcaption>Surabaya, 1945</figcaption>
+      </figure>
     </div>
   </section>
 
-  <!-- SLIDE 03: SURABAYA BATTLE -->
+  <!-- SLIDE 04: SURABAYA BATTLE -->
   <section class="slide" data-number="04 / 14">
-    <p class="kicker reveal">01 — Surabaya · Jalannya Pertempuran</p><h2 class="reveal">Kota yang <span class="accent">Bertahan</span></h2>
-    <div class="body-copy reveal"><p>Pada 10 November 1945, pasukan Inggris melancarkan serangan besar melalui darat, laut, dan udara. Tentara Keamanan Rakyat, kelompok pemuda, dan warga Surabaya bahu-membahu mempertahankan kota meskipun persenjataan mereka kalah modern.</p><p>Bung Tomo membangkitkan semangat rakyat melalui pidato radio. Pertempuran berlangsung sengit selama beberapa minggu, menimbulkan banyak korban dan kerusakan. Meski pasukan Indonesia akhirnya terdesak dari pusat kota, perlawanan Surabaya menjadi lambang keberanian mempertahankan kemerdekaan. Tanggal 10 November kini diperingati sebagai Hari Pahlawan.</p></div>
-    <div class="timeline reveal"><div class="event"><time>25 OKT 1945</time><h3>Sekutu tiba</h3><p>Pasukan Inggris mendarat di Surabaya.</p></div><div class="event"><time>30 OKT 1945</time><h3>Ketegangan</h3><p>Mallaby tewas dalam insiden di Surabaya.</p></div><div class="event"><time>9 NOV 1945</time><h3>Ultimatum</h3><p>Inggris meminta rakyat menyerahkan senjata.</p></div><div class="event"><time>10 NOV 1945</time><h3>Serangan besar</h3><p>Pertempuran meluas di berbagai wilayah kota.</p></div></div>
+    <p class="kicker reveal">01 — Surabaya · Jalannya Pertempuran</p>
+    <h2 class="reveal">Kota yang <span class="accent">Bertahan</span></h2>
+    <div class="body-copy reveal">
+      <p>Pada 10 November 1945, pasukan Inggris melancarkan serangan besar melalui darat, laut, dan udara. Tentara Keamanan Rakyat, kelompok pemuda, dan warga Surabaya bahu-membahu mempertahankan kota meskipun persenjataan mereka kalah modern.</p>
+      <p>Bung Tomo membangkitkan semangat rakyat melalui pidato radio. Pertempuran berlangsung sengit selama beberapa minggu, menimbulkan banyak korban dan kerusakan. Meski pasukan Indonesia akhirnya terdesak dari pusat kota, perlawanan Surabaya menjadi lambang keberanian mempertahankan kemerdekaan. Tanggal 10 November kini diperingati sebagai Hari Pahlawan.</p>
+    </div>
+    <div class="timeline reveal">
+      <div class="event"><time>25 OKT 1945</time><h3>Sekutu tiba</h3><p>Pasukan Inggris mendarat di Surabaya.</p></div>
+      <div class="event"><time>30 OKT 1945</time><h3>Ketegangan</h3><p>Mallaby tewas dalam insiden di Surabaya.</p></div>
+      <div class="event"><time>9 NOV 1945</time><h3>Ultimatum</h3><p>Inggris meminta rakyat menyerahkan senjata.</p></div>
+      <div class="event"><time>10 NOV 1945</time><h3>Serangan besar</h3><p>Pertempuran meluas di berbagai wilayah kota.</p></div>
+    </div>
   </section>
 
-  <!-- SLIDE 04: SURABAYA FIGURES -->
+  <!-- SLIDE 05: SURABAYA FIGURES -->
   <section class="slide" data-number="05 / 14">
-    <p class="kicker reveal">01 — Surabaya · Tokoh Penting</p><h2 class="reveal">Suara dan <span class="accent">Perlawanan</span></h2>
+    <p class="kicker reveal">01 — Surabaya · Tokoh Penting</p>
+    <h2 class="reveal">Suara dan <span class="accent">Perlawanan</span></h2>
     <div class="figure-grid reveal">
-      <article class="person"><figure class="visual"><img src="images/bung-tomo.jpg" alt="Bung Tomo" onerror="this.style.display='none'"><div class="placeholder"><strong>FOTO 01</strong><span>images/bung-tomo.jpg</span></div></figure><h3>Sutomo <span class="gold">/ Bung Tomo</span></h3><p>Membangkitkan semangat rakyat melalui pidato dan siaran radio.</p></article>
-      <article class="person"><figure class="visual"><img src="images/rm-suryo.jpg" alt="R.M. Suryo" onerror="this.style.display='none'"><div class="placeholder"><strong>FOTO 02</strong><span>images/rm-suryo.jpg</span></div></figure><h3>R.M. Suryo</h3><p>Gubernur Jawa Timur yang mendukung perjuangan mempertahankan kemerdekaan.</p></article>
-      <article class="person"><figure class="visual"><img src="images/sungkono.jpg" alt="Mayjen Sungkono" onerror="this.style.display='none'"><div class="placeholder"><strong>FOTO 03</strong><span>images/sungkono.jpg</span></div></figure><h3>Mayjen Sungkono</h3><p>Memimpin koordinasi pertahanan rakyat Surabaya.</p></article>
-      <article class="person"><figure class="visual"><img src="images/mallaby.jpg" alt="A.W.S. Mallaby" onerror="this.style.display='none'"><div class="placeholder"><strong>FOTO 04</strong><span>images/mallaby.jpg</span></div></figure><h3>A.W.S. Mallaby</h3><p>Perwira Inggris yang tewas pada 30 Oktober 1945.</p></article>
-    </div><p class="bottom-note">Ganti gambar dengan file sendiri melalui folder images/.</p>
+      <article class="person">
+        <figure class="visual"><img src="images/bung-tomo.jpg" alt="Bung Tomo" onerror="this.style.display='none'"><div class="placeholder"><strong>FOTO 01</strong><span>images/bung-tomo.jpg</span></div></figure>
+        <h3>Sutomo <span class="gold">/ Bung Tomo</span></h3>
+        <p>Membangkitkan semangat rakyat melalui pidato dan siaran radio.</p>
+      </article>
+      <article class="person">
+        <figure class="visual"><img src="images/rm-suryo.jpg" alt="R.M. Suryo" onerror="this.style.display='none'"><div class="placeholder"><strong>FOTO 02</strong><span>images/rm-suryo.jpg</span></div></figure>
+        <h3>R.M. Suryo</h3>
+        <p>Gubernur Jawa Timur yang mendukung perjuangan mempertahankan kemerdekaan.</p>
+      </article>
+      <article class="person">
+        <figure class="visual"><img src="images/sungkono.jpg" alt="Mayjen Sungkono" onerror="this.style.display='none'"><div class="placeholder"><strong>FOTO 03</strong><span>images/sungkono.jpg</span></div></figure>
+        <h3>Mayjen Sungkono</h3>
+        <p>Memimpin koordinasi pertahanan rakyat Surabaya.</p>
+      </article>
+      <article class="person">
+        <figure class="visual"><img src="images/mallaby.jpg" alt="A.W.S. Mallaby" onerror="this.style.display='none'"><div class="placeholder"><strong>FOTO 04</strong><span>images/mallaby.jpg</span></div></figure>
+        <h3>A.W.S. Mallaby</h3>
+        <p>Perwira Inggris yang tewas pada 30 Oktober 1945.</p>
+      </article>
+    </div>
+    <p class="bottom-note">Ganti gambar dengan file sendiri melalui folder images/.</p>
   </section>
 
   <!-- SLIDE 06: PALEMBANG BACKGROUND -->
-  <section class="slide" data-number="06 / 14"><p class="kicker reveal">02 — Palembang · Latar Belakang</p><div class="content-grid"><div class="copy reveal"><h2>Kota Strategis di <span class="accent">Sumatra</span></h2><p>Sesudah kemerdekaan Indonesia, Belanda berusaha menguasai kembali sejumlah wilayah, termasuk Palembang. Kota ini penting karena menjadi pusat pemerintahan dan perekonomian Sumatra Selatan serta dekat dengan sumber minyak bumi.</p><p>Ketegangan antara pasukan Indonesia dan Belanda meningkat ketika Belanda memperkuat kedudukannya di kota. Perselisihan mengenai wilayah kekuasaan dan aktivitas militer berkembang menjadi pertempuran terbuka pada awal Januari 1947.</p></div><figure class="visual"><img src="images/palembang-latar.jpg" alt="Foto Pertempuran Palembang" onerror="this.style.display='none'"><div class="placeholder"><strong>FOTO PALEMBANG</strong><span>Tambahkan foto arsip di<br>images/palembang-latar.jpg</span></div><figcaption>Palembang, 1947</figcaption></figure></div></section>
+  <section class="slide" data-number="06 / 14">
+    <p class="kicker reveal">02 — Palembang · Latar Belakang</p>
+    <div class="content-grid">
+      <div class="copy reveal">
+        <h2>Kota Strategis di <span class="accent">Sumatra</span></h2>
+        <p>Sesudah kemerdekaan Indonesia, Belanda berusaha menguasai kembali sejumlah wilayah, termasuk Palembang. Kota ini penting karena menjadi pusat pemerintahan dan perekonomian Sumatra Selatan serta dekat dengan sumber minyak bumi.</p>
+        <p>Ketegangan antara pasukan Indonesia dan Belanda meningkat ketika Belanda memperkuat kedudukannya di kota. Perselisihan mengenai wilayah kekuasaan dan aktivitas militer berkembang menjadi pertempuran terbuka pada awal Januari 1947.</p>
+      </div>
+      <figure class="visual">
+        <img src="images/palembang-latar.jpg" alt="Foto Pertempuran Palembang" onerror="this.style.display='none'">
+        <div class="placeholder"><strong>FOTO PALEMBANG</strong><span>Tambahkan foto arsip di<br>images/palembang-latar.jpg</span></div>
+        <figcaption>Palembang, 1947</figcaption>
+      </figure>
+    </div>
+  </section>
 
   <!-- SLIDE 07: PALEMBANG BATTLE -->
-  <section class="slide" data-number="07 / 14"><p class="kicker reveal">02 — Palembang · Jalannya Pertempuran</p><h2>Lima Hari Lima <span class="accent">Malam</span></h2><div class="content-grid"><div class="copy reveal"><p>Pertempuran Lima Hari Lima Malam berlangsung pada 1–5 Januari 1947. Pasukan Indonesia menghadapi tentara Belanda di berbagai bagian kota. Para pejuang memanfaatkan pengetahuan terhadap lingkungan setempat untuk melakukan perlawanan.</p><p>Pertempuran menimbulkan korban dan kerusakan bangunan. Setelah lima hari pertempuran, kedua pihak menyepakati penghentian tembak-menembak dan penarikan pasukan dari wilayah tertentu. Peristiwa ini memperlihatkan tekad rakyat Palembang untuk mempertahankan kemerdekaan, meskipun tidak menghasilkan kemenangan militer mutlak bagi Indonesia.</p></div><figure class="visual"><img src="images/palembang-pertempuran.jpg" alt="Ilustrasi pertempuran Palembang" onerror="this.style.display='none'"><div class="placeholder"><strong>FOTO PERTEMPURAN</strong><span>images/palembang-pertempuran.jpg</span></div></figure></div><p class="bottom-note">Catatan: cocokkan rincian nama komandan dengan buku sejarah yang digunakan di kelas.</p></section>
+  <section class="slide" data-number="07 / 14">
+    <p class="kicker reveal">02 — Palembang · Jalannya Pertempuran</p>
+    <h2 class="reveal">Lima Hari Lima <span class="accent">Malam</span></h2>
+    <div class="content-grid">
+      <div class="copy reveal">
+        <p>Pertempuran Lima Hari Lima Malam berlangsung pada 1–5 Januari 1947. Pasukan Indonesia menghadapi tentara Belanda di berbagai bagian kota. Para pejuang memanfaatkan pengetahuan terhadap lingkungan setempat untuk melakukan perlawanan.</p>
+        <p>Pertempuran menimbulkan korban dan kerusakan bangunan. Setelah lima hari pertempuran, kedua pihak menyepakati penghentian tembak-menembak dan penarikan pasukan dari wilayah tertentu. Peristiwa ini memperlihatkan tekad rakyat Palembang untuk mempertahankan kemerdekaan, meskipun tidak menghasilkan kemenangan militer mutlak bagi Indonesia.</p>
+      </div>
+      <figure class="visual">
+        <img src="images/palembang-pertempuran.jpg" alt="Ilustrasi pertempuran Palembang" onerror="this.style.display='none'">
+        <div class="placeholder"><strong>FOTO PERTEMPURAN</strong><span>images/palembang-pertempuran.jpg</span></div>
+      </figure>
+    </div>
+    <p class="bottom-note">Catatan: cocokkan rincian nama komandan dengan buku sejarah yang digunakan di kelas.</p>
+  </section>
 
   <!-- SLIDE 08: PALEMBANG FIGURES -->
-  <section class="slide" data-number="08 / 14"><p class="kicker reveal">02 — Palembang · Tokoh Penting</p><h2>Para Pejuang <span class="accent">Palembang</span></h2><div class="figure-grid reveal">
-    <article class="person"><figure class="visual"><img src="images/palembang-tokoh-1.jpg" alt="Tokoh perjuangan Palembang" onerror="this.style.display='none'"><div class="placeholder"><strong>FOTO TOKOH 01</strong><span>images/palembang-tokoh-1.jpg</span></div></figure><h3>Mohammad Isa</h3><p>Tokoh pemerintahan Sumatra Selatan pada masa awal kemerdekaan.</p></article>
-    <article class="person"><figure class="visual"><img src="images/palembang-tokoh-2.jpg" alt="Tokoh militer Indonesia" onerror="this.style.display='none'"><div class="placeholder"><strong>FOTO TOKOH 02</strong><span>images/palembang-tokoh-2.jpg</span></div></figure><h3>Tokoh militer setempat</h3><p>Pasukan dan komandan lokal berperan mengatur pertahanan kota.</p></article>
-    <article class="person"><figure class="visual"><img src="images/palembang-tokoh-3.jpg" alt="Pejuang kemerdekaan" onerror="this.style.display='none'"><div class="placeholder"><strong>FOTO TOKOH 03</strong><span>images/palembang-tokoh-3.jpg</span></div></figure><h3>Pejuang Republik</h3><p>Anggota laskar dan tentara Indonesia mempertahankan wilayah kota.</p></article>
-    <article class="person"><figure class="visual"><img src="images/palembang-tokoh-4.jpg" alt="Pasukan perjuangan Palembang" onerror="this.style.display='none'"><div class="placeholder"><strong>FOTO TOKOH 04</strong><span>images/palembang-tokoh-4.jpg</span></div></figure><h3>Rakyat Palembang</h3><p>Dukungan masyarakat menjadi bagian penting dari perjuangan.</p></article>
-  </div><p class="bottom-note">Periksa kembali nama tokoh khusus Pertempuran Palembang sebelum presentasi.</p></section>
+  <section class="slide" data-number="08 / 14">
+    <p class="kicker reveal">02 — Palembang · Tokoh Penting</p>
+    <h2 class="reveal">Para Pejuang <span class="accent">Palembang</span></h2>
+    <div class="figure-grid reveal">
+      <article class="person">
+        <figure class="visual"><img src="images/palembang-tokoh-1.jpg" alt="Tokoh perjuangan Palembang" onerror="this.style.display='none'"><div class="placeholder"><strong>FOTO TOKOH 01</strong><span>images/palembang-tokoh-1.jpg</span></div></figure>
+        <h3>Mohammad Isa</h3><p>Tokoh pemerintahan Sumatra Selatan pada masa awal kemerdekaan.</p>
+      </article>
+      <article class="person">
+        <figure class="visual"><img src="images/palembang-tokoh-2.jpg" alt="Tokoh militer Indonesia" onerror="this.style.display='none'"><div class="placeholder"><strong>FOTO TOKOH 02</strong><span>images/palembang-tokoh-2.jpg</span></div></figure>
+        <h3>Tokoh militer setempat</h3><p>Pasukan dan komandan lokal berperan mengatur pertahanan kota.</p>
+      </article>
+      <article class="person">
+        <figure class="visual"><img src="images/palembang-tokoh-3.jpg" alt="Pejuang kemerdekaan" onerror="this.style.display='none'"><div class="placeholder"><strong>FOTO TOKOH 03</strong><span>images/palembang-tokoh-3.jpg</span></div></figure>
+        <h3>Pejuang Republik</h3><p>Anggota laskar dan tentara Indonesia mempertahankan wilayah kota.</p>
+      </article>
+      <article class="person">
+        <figure class="visual"><img src="images/palembang-tokoh-4.jpg" alt="Pasukan perjuangan Palembang" onerror="this.style.display='none'"><div class="placeholder"><strong>FOTO TOKOH 04</strong><span>images/palembang-tokoh-4.jpg</span></div></figure>
+        <h3>Rakyat Palembang</h3><p>Dukungan masyarakat menjadi bagian penting dari perjuangan.</p>
+      </article>
+    </div>
+    <p class="bottom-note">Periksa kembali nama tokoh khusus Pertempuran Palembang sebelum presentasi.</p>
+  </section>
 
   <!-- SLIDE 09: MARGARANA BACKGROUND -->
-  <section class="slide" data-number="09 / 14"><p class="kicker reveal">03 — Bali · 20 November 1946</p><div class="content-grid"><div class="copy reveal"><h2>Latar Belakang <span class="accent">Margarana</span></h2><p>Setelah Indonesia merdeka, Belanda berusaha menguasai kembali Bali dan membentuk negara-negara bagian untuk melemahkan Republik Indonesia. I Gusti Ngurah Rai menolak rencana tersebut dan bertekad mempertahankan Bali sebagai bagian dari Republik.</p><p>Ngurah Rai membentuk pasukan Ciung Wanara untuk melawan Belanda. Setelah melakukan serangan terhadap kedudukan Belanda, pasukannya menghadapi tekanan militer yang semakin besar. Keadaan itu memuncak dalam pertempuran di Margarana, Kabupaten Tabanan, pada 20 November 1946.</p></div><figure class="visual"><img src="images/margarana-latar.jpg" alt="Monumen atau foto Puputan Margarana" onerror="this.style.display='none'"><div class="placeholder"><strong>FOTO MARGARANA</strong><span>images/margarana-latar.jpg</span></div><figcaption>Bali, 1946</figcaption></figure></div></section>
+  <section class="slide" data-number="09 / 14">
+    <p class="kicker reveal">03 — Bali · 20 November 1946</p>
+    <div class="content-grid">
+      <div class="copy reveal">
+        <h2>Latar Belakang <span class="accent">Margarana</span></h2>
+        <p>Setelah Indonesia merdeka, Belanda berusaha menguasai kembali Bali dan membentuk negara-negara bagian untuk melemahkan Republik Indonesia. I Gusti Ngurah Rai menolak rencana tersebut dan bertekad mempertahankan Bali sebagai bagian dari Republik.</p>
+        <p>Ngurah Rai membentuk pasukan Ciung Wanara untuk melawan Belanda. Setelah melakukan serangan terhadap kedudukan Belanda, pasukannya menghadapi tekanan militer yang semakin besar. Keadaan itu memuncak dalam pertempuran di Margarana, Kabupaten Tabanan, pada 20 November 1946.</p>
+      </div>
+      <figure class="visual">
+        <img src="images/margarana-latar.jpg" alt="Monumen atau foto Puputan Margarana" onerror="this.style.display='none'">
+        <div class="placeholder"><strong>FOTO MARGARANA</strong><span>images/margarana-latar.jpg</span></div>
+        <figcaption>Bali, 1946</figcaption>
+      </figure>
+    </div>
+  </section>
 
   <!-- SLIDE 10: MARGARANA BATTLE -->
-  <section class="slide" data-number="10 / 14"><p class="kicker reveal">03 — Margarana · Jalannya Pertempuran</p><h2>Perlawanan <span class="accent">Sampai Akhir</span></h2><div class="content-grid"><div class="copy reveal"><p>Pada 20 November 1946, pasukan Belanda mengepung pasukan Ciung Wanara di Margarana. Pasukan Indonesia melakukan perlawanan meskipun menghadapi kekuatan dan persenjataan Belanda yang lebih unggul.</p><p>I Gusti Ngurah Rai dan banyak anggota pasukannya gugur dalam pertempuran tersebut. Peristiwa ini dikenal sebagai Puputan Margarana; kata “puputan” menggambarkan perjuangan hingga akhir. Pengorbanan mereka menjadi simbol tekad rakyat Bali untuk mempertahankan kemerdekaan Indonesia.</p></div><figure class="visual"><img src="images/margarana-pertempuran.jpg" alt="Foto monumen atau ilustrasi Puputan Margarana" onerror="this.style.display='none'"><div class="placeholder"><strong>FOTO PERJUANGAN</strong><span>images/margarana-pertempuran.jpg</span></div></figure></div></section>
+  <section class="slide" data-number="10 / 14">
+    <p class="kicker reveal">03 — Margarana · Jalannya Pertempuran</p>
+    <h2 class="reveal">Perlawanan <span class="accent">Sampai Akhir</span></h2>
+    <div class="content-grid">
+      <div class="copy reveal">
+        <p>Pada 20 November 1946, pasukan Belanda mengepung pasukan Ciung Wanara di Margarana. Pasukan Indonesia melakukan perlawanan meskipun menghadapi kekuatan dan persenjataan Belanda yang lebih unggul.</p>
+        <p>I Gusti Ngurah Rai dan banyak anggota pasukannya gugur dalam pertempuran tersebut. Peristiwa ini dikenal sebagai Puputan Margarana; kata “puputan” menggambarkan perjuangan hingga akhir. Pengorbanan mereka menjadi simbol tekad rakyat Bali untuk mempertahankan kemerdekaan Indonesia.</p>
+      </div>
+      <figure class="visual">
+        <img src="images/margarana-pertempuran.jpg" alt="Foto monumen atau ilustrasi Puputan Margarana" onerror="this.style.display='none'">
+        <div class="placeholder"><strong>FOTO PERJUANGAN</strong><span>images/margarana-pertempuran.jpg</span></div>
+      </figure>
+    </div>
+  </section>
 
   <!-- SLIDE 11: MARGARANA FIGURES -->
-  <section class="slide" data-number="11 / 14"><p class="kicker reveal">03 — Margarana · Tokoh Penting</p><h2>Pasukan <span class="accent">Ciung Wanara</span></h2><div class="figure-grid reveal" style="grid-template-columns:repeat(3,minmax(0,1fr))">
-    <article class="person"><figure class="visual"><img src="images/ngurah-rai.jpg" alt="I Gusti Ngurah Rai" onerror="this.style.display='none'"><div class="placeholder"><strong>FOTO 01</strong><span>images/ngurah-rai.jpg</span></div></figure><h3>I Gusti Ngurah Rai</h3><p>Pemimpin pasukan Ciung Wanara yang memimpin perlawanan dan gugur dalam Puputan Margarana.</p></article>
-    <article class="person"><figure class="visual"><img src="images/ciung-wanara.jpg" alt="Pasukan Ciung Wanara" onerror="this.style.display='none'"><div class="placeholder"><strong>FOTO 02</strong><span>images/ciung-wanara.jpg</span></div></figure><h3>Pasukan Ciung Wanara</h3><p>Para pejuang yang bersama Ngurah Rai berjuang mempertahankan Bali sebagai bagian dari Republik.</p></article>
-    <article class="person"><figure class="visual"><img src="images/pejuang-bali.jpg" alt="Pejuang Bali" onerror="this.style.display='none'"><div class="placeholder"><strong>FOTO 03</strong><span>images/pejuang-bali.jpg</span></div></figure><h3>Pejuang Bali</h3><p>Para pejuang lokal turut menyumbangkan tenaga dalam perlawanan terhadap Belanda.</p></article>
-  </div></section>
+  <section class="slide" data-number="11 / 14">
+    <p class="kicker reveal">03 — Margarana · Tokoh Penting</p>
+    <h2 class="reveal">Pasukan <span class="accent">Ciung Wanara</span></h2>
+    <div class="figure-grid three-columns reveal">
+      <article class="person">
+        <figure class="visual"><img src="images/ngurah-rai.jpg" alt="I Gusti Ngurah Rai" onerror="this.style.display='none'"><div class="placeholder"><strong>FOTO 01</strong><span>images/ngurah-rai.jpg</span></div></figure>
+        <h3>I Gusti Ngurah Rai</h3><p>Pemimpin pasukan Ciung Wanara yang memimpin perlawanan dan gugur dalam Puputan Margarana.</p>
+      </article>
+      <article class="person">
+        <figure class="visual"><img src="images/ciung-wanara.jpg" alt="Pasukan Ciung Wanara" onerror="this.style.display='none'"><div class="placeholder"><strong>FOTO 02</strong><span>images/ciung-wanara.jpg</span></div></figure>
+        <h3>Pasukan Ciung Wanara</h3><p>Para pejuang yang bersama Ngurah Rai berjuang mempertahankan Bali sebagai bagian dari Republik.</p>
+      </article>
+      <article class="person">
+        <figure class="visual"><img src="images/pejuang-bali.jpg" alt="Pejuang Bali" onerror="this.style.display='none'"><div class="placeholder"><strong>FOTO 03</strong><span>images/pejuang-bali.jpg</span></div></figure>
+        <h3>Pejuang Bali</h3><p>Para pejuang lokal turut menyumbangkan tenaga dalam perlawanan terhadap Belanda.</p>
+      </article>
+    </div>
+  </section>
 
-  <!-- SLIDE 12: MAKASSAR POST-INDEPENDENCE -->
-  <section class="slide" data-number="12 / 14"><p class="kicker reveal">04 — Makassar · Perlawanan Setelah Kemerdekaan</p><div class="content-grid"><div class="copy reveal"><h2>Makassar Mempertahankan <span class="accent">Republik</span></h2><p>Setelah Proklamasi 17 Agustus 1945, rakyat Makassar dan Sulawesi Selatan berusaha mempertahankan kemerdekaan ketika Belanda kembali untuk memulihkan kekuasaan kolonial. Pasukan Sekutu tiba di Makassar pada September 1945 untuk menerima penyerahan Jepang dan membebaskan tawanan perang. Kedatangan Belanda kemudian memicu ketegangan dengan para pendukung Republik.</p><p>Situasi semakin tegang ketika Belanda memperkuat kekuasaannya dan berusaha membatasi gerakan pendukung Republik. Berbagai organisasi dan kelompok pejuang mulai mengatur perlawanan politik maupun bersenjata. Perjuangan tersebut kemudian berkembang di Makassar dan sejumlah wilayah Sulawesi Selatan.</p></div><figure class="visual"><img src="images/makassar-latar.jpg" alt="Foto perjuangan Makassar setelah kemerdekaan" onerror="this.style.display='none'"><div class="placeholder"><strong>FOTO MAKASSAR</strong><span>Tambahkan foto arsip di<br>images/makassar-latar.jpg</span></div><figcaption>Sulawesi Selatan, 1945–1949</figcaption></figure></div><p class="bottom-note">Materi Makassar merangkum perlawanan setelah proklamasi, bukan satu pertempuran tunggal.</p></section>
+  <!-- SLIDE 12: MAKASSAR BACKGROUND -->
+  <section class="slide" data-number="12 / 14">
+    <p class="kicker reveal">04 — Makassar · Perlawanan Setelah Kemerdekaan</p>
+    <div class="content-grid">
+      <div class="copy reveal">
+        <h2>Makassar Mempertahankan <span class="accent">Republik</span></h2>
+        <p>Setelah Proklamasi 17 Agustus 1945, rakyat Makassar dan Sulawesi Selatan berusaha mempertahankan kemerdekaan ketika Belanda kembali untuk memulihkan kekuasaan kolonial. Pasukan Sekutu tiba di Makassar pada September 1945 untuk menerima penyerahan Jepang dan membebaskan tawanan perang. Kedatangan Belanda kemudian memicu ketegangan dengan para pendukung Republik.</p>
+        <p>Situasi semakin tegang ketika Belanda memperkuat kekuasaannya dan berusaha membatasi gerakan pendukung Republik. Berbagai organisasi dan kelompok pejuang mulai mengatur perlawanan politik maupun bersenjata. Perjuangan tersebut kemudian berkembang di Makassar dan sejumlah wilayah Sulawesi Selatan.</p>
+      </div>
+      <figure class="visual">
+        <img src="images/makassar-latar.jpg" alt="Foto perjuangan Makassar setelah kemerdekaan" onerror="this.style.display='none'">
+        <div class="placeholder"><strong>FOTO MAKASSAR</strong><span>Tambahkan foto arsip di<br>images/makassar-latar.jpg</span></div>
+        <figcaption>Sulawesi Selatan, 1945–1949</figcaption>
+      </figure>
+    </div>
+    <p class="bottom-note">Materi Makassar merangkum perlawanan setelah proklamasi, bukan satu pertempuran tunggal.</p>
+  </section>
 
-  <!-- SLIDE 12: MAKASSAR COURSE OF RESISTANCE -->
-  <section class="slide" data-number="13 / 14"><p class="kicker reveal">04 — Makassar · Jalannya Perlawanan</p><h2>Perjuangan <span class="accent">Berlanjut</span></h2><div class="content-grid"><div class="copy reveal"><p>Sejak akhir 1945, perlawanan terhadap Belanda berkembang di Makassar dan wilayah Sulawesi Selatan. Para pejuang melakukan berbagai aksi untuk menentang kembalinya kekuasaan kolonial, termasuk mengorganisasi kelompok perjuangan dan melakukan perlawanan bersenjata.</p><p>Belanda meningkatkan operasi militer untuk menumpas gerakan tersebut. Sejumlah pejuang ditangkap, tetapi perjuangan tetap menjadi bagian dari upaya mempertahankan Republik Indonesia. Perlawanan di Sulawesi Selatan memperlihatkan bahwa perjuangan setelah proklamasi berlangsung di banyak daerah, tidak hanya di Pulau Jawa.</p><p>Robert Wolter Monginsidi terus terlibat dalam perjuangan hingga ditangkap dan dihukum mati pada 5 September 1949.</p></div><figure class="visual"><img src="images/makassar-perlawanan.jpg" alt="Foto perlawanan rakyat Makassar" onerror="this.style.display='none'"><div class="placeholder"><strong>FOTO PERLAWANAN</strong><span>images/makassar-perlawanan.jpg</span></div></figure></div></section>
+  <!-- SLIDE 13: MAKASSAR RESISTANCE -->
+  <section class="slide" data-number="13 / 14">
+    <p class="kicker reveal">04 — Makassar · Jalannya Perlawanan</p>
+    <h2 class="reveal">Perjuangan <span class="accent">Berlanjut</span></h2>
+    <div class="content-grid">
+      <div class="copy reveal">
+        <p>Sejak akhir 1945, perlawanan terhadap Belanda berkembang di Makassar dan wilayah Sulawesi Selatan. Para pejuang melakukan berbagai aksi untuk menentang kembalinya kekuasaan kolonial, termasuk mengorganisasi kelompok perjuangan dan melakukan perlawanan bersenjata.</p>
+        <p>Belanda meningkatkan operasi militer untuk menumpas gerakan tersebut. Sejumlah pejuang ditangkap, tetapi perjuangan tetap menjadi bagian dari upaya mempertahankan Republik Indonesia. Perlawanan di Sulawesi Selatan memperlihatkan bahwa perjuangan setelah proklamasi berlangsung di banyak daerah, tidak hanya di Pulau Jawa.</p>
+        <p>Robert Wolter Monginsidi terus terlibat dalam perjuangan hingga ditangkap dan dihukum mati pada 5 September 1949.</p>
+      </div>
+      <figure class="visual">
+        <img src="images/makassar-perlawanan.jpg" alt="Foto perlawanan rakyat Makassar" onerror="this.style.display='none'">
+        <div class="placeholder"><strong>FOTO PERLAWANAN</strong><span>images/makassar-perlawanan.jpg</span></div>
+      </figure>
+    </div>
+  </section>
 
-  <!-- SLIDE 13: MAKASSAR FIGURES -->
-  <section class="slide" data-number="14 / 14"><p class="kicker reveal">04 — Makassar · Tokoh Penting</p><h2>Tokoh Perjuangan <span class="accent">Sulawesi Selatan</span></h2><div class="figure-grid reveal" style="grid-template-columns:repeat(3,minmax(0,1fr))">
-    <article class="person"><figure class="visual"><img src="images/robert-wolter-monginsidi.jpg" alt="Robert Wolter Monginsidi" onerror="this.style.display='none'"><div class="placeholder"><strong>FOTO 01</strong><span>images/robert-wolter-monginsidi.jpg</span></div></figure><h3>Robert Wolter Monginsidi</h3><p>Pejuang yang mengorganisasi perlawanan terhadap Belanda dan dihukum mati pada 5 September 1949.</p></article>
-    <article class="person"><figure class="visual"><img src="images/andi-makkasau.jpg" alt="Andi Makkasau" onerror="this.style.display='none'"><div class="placeholder"><strong>FOTO 02</strong><span>images/andi-makkasau.jpg</span></div></figure><h3>Andi Makkasau</h3><p>Tokoh perjuangan di wilayah Parepare dan sekitarnya yang menentang kembalinya kekuasaan Belanda.</p></article>
-    <article class="person"><figure class="visual"><img src="images/pejuang-sulsel.jpg" alt="Pejuang Sulawesi Selatan" onerror="this.style.display='none'"><div class="placeholder"><strong>FOTO 03</strong><span>images/pejuang-sulsel.jpg</span></div></figure><h3>Pejuang Sulawesi Selatan</h3><p>Berbagai kelompok pejuang dan masyarakat mendukung perjuangan mempertahankan kemerdekaan.</p></article>
-  </div><p class="bottom-note">Gunakan foto tokoh yang terverifikasi dari sumber sejarah atau buku pelajaran.</p></section>
+  <!-- SLIDE 14: MAKASSAR FIGURES -->
+  <section class="slide" data-number="14 / 14">
+    <p class="kicker reveal">04 — Makassar · Tokoh Penting</p>
+    <h2 class="reveal">Tokoh Perjuangan <span class="accent">Sulawesi Selatan</span></h2>
+    <div class="figure-grid three-columns reveal">
+      <article class="person">
+        <figure class="visual"><img src="images/robert-wolter-monginsidi.jpg" alt="Robert Wolter Monginsidi" onerror="this.style.display='none'"><div class="placeholder"><strong>FOTO 01</strong><span>images/robert-wolter-monginsidi.jpg</span></div></figure>
+        <h3>Robert Wolter Monginsidi</h3><p>Pejuang yang mengorganisasi perlawanan terhadap Belanda dan dihukum mati pada 5 September 1949.</p>
+      </article>
+      <article class="person">
+        <figure class="visual"><img src="images/andi-makkasau.jpg" alt="Andi Makkasau" onerror="this.style.display='none'"><div class="placeholder"><strong>FOTO 02</strong><span>images/andi-makkasau.jpg</span></div></figure>
+        <h3>Andi Makkasau</h3><p>Tokoh perjuangan di wilayah Parepare dan sekitarnya yang menentang kembalinya kekuasaan Belanda.</p>
+      </article>
+      <article class="person">
+        <figure class="visual"><img src="images/pejuang-sulsel.jpg" alt="Pejuang Sulawesi Selatan" onerror="this.style.display='none'"><div class="placeholder"><strong>FOTO 03</strong><span>images/pejuang-sulsel.jpg</span></div></figure>
+        <h3>Pejuang Sulawesi Selatan</h3><p>Berbagai kelompok pejuang dan masyarakat mendukung perjuangan mempertahankan kemerdekaan.</p>
+      </article>
+    </div>
+    <p class="bottom-note">Gunakan foto tokoh yang terverifikasi dari sumber sejarah atau buku pelajaran.</p>
+  </section>
+
 </div>
+
 <div class="hint">← → NAVIGASI · F LAYAR PENUH</div>
 <div class="dots" id="dots" aria-label="Pilih slide"></div>
-<nav class="hud" aria-label="Kontrol presentasi"><span class="counter" id="counter">01 / 14</span><div class="progress"><div class="progress-fill" id="progressFill"></div></div><div class="nav-buttons"><button id="prev" aria-label="Slide sebelumnya">←</button><button id="next" aria-label="Slide berikutnya">→</button></div></nav>
-<script>
-/* === SLIDE PRESENTATION CONTROLLER === */
-class SlidePresentation{
- constructor(){this.slides=[...document.querySelectorAll('.slide')];this.deck=document.getElementById('deck');this.index=0;this.flash=document.createElement('div');this.flash.className='cinema-flash';document.body.appendChild(this.flash);this.addCinematicAtmosphere();this.counter=document.getElementById('counter');this.fill=document.getElementById('progressFill');this.dots=document.getElementById('dots');this.touchY=0;this.buildDots();this.update();this.bind();}
- addCinematicAtmosphere(){
-  const canvas=document.createElement('canvas');canvas.className='cinema-embers';canvas.setAttribute('aria-hidden','true');this.deck.appendChild(canvas);
-  const vignette=document.createElement('div');vignette.className='cinema-vignette';vignette.setAttribute('aria-hidden','true');this.deck.appendChild(vignette);
-  const ctx=canvas.getContext('2d');if(!ctx)return;let w=0,h=0,embers=[];const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const resize=()=>{const dpr=Math.min(window.devicePixelRatio||1,1.5);w=this.deck.clientWidth;h=this.deck.clientHeight;canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);embers=Array.from({length:reduced?0:Math.max(18,Math.min(42,Math.round(w/34)))},()=>({x:Math.random()*w,y:Math.random()*h,r:.5+Math.random()*1.6,v:.12+Math.random()*.38,drift:(Math.random()-.5)*.28,a:.12+Math.random()*.4,phase:Math.random()*6.28}));};
-  resize();window.addEventListener('resize',resize,{passive:true});let frame=0;
-  const draw=()=>{ctx.clearRect(0,0,w,h);if(!reduced){frame++;for(const e of embers){e.y-=e.v;e.x+=e.drift+Math.sin(frame*.009+e.phase)*.13;if(e.y< -8){e.y=h+8;e.x=Math.random()*w;}if(e.x<0)e.x=w;if(e.x>w)e.x=0;const pulse=.55+.45*Math.sin(frame*.025+e.phase);ctx.beginPath();ctx.fillStyle=`rgba(232,185,109,${e.a*pulse})`;ctx.shadowColor='rgba(228,77,50,.7)';ctx.shadowBlur=7;ctx.arc(e.x,e.y,e.r*pulse,0,Math.PI*2);ctx.fill();}ctx.shadowBlur=0;}requestAnimationFrame(draw);};requestAnimationFrame(draw);
-  this.deck.addEventListener('pointermove',e=>{if(e.pointerType==='touch')return;const r=this.deck.getBoundingClientRect();this.deck.style.setProperty('--pointer-x',`${((e.clientX-r.left)/r.width)*100}%`);this.deck.style.setProperty('--pointer-y',`${((e.clientY-r.top)/r.height)*100}%`);},{passive:true});
- }
- buildDots() {
-  this.slides.forEach((s, i) => {
-    const b = document.createElement('button');
-    b.setAttribute('aria-label', `Buka slide ${i + 1}`);
-    b.addEventListener('click', () => this.go(i));
-    this.dots.appendChild(b);
-  });
 
-  this.dotButtons = [...this.dots.querySelectorAll('button')];
-}
+<nav class="hud" aria-label="Kontrol presentasi">
+  <span class="counter" id="counter">01 / 14</span>
+  <div class="progress"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="nav-buttons">
+    <button id="prev" aria-label="Slide sebelumnya">←</button>
+    <button id="next" aria-label="Slide berikutnya">→</button>
+  </div>
+</nav>
 
-go(i) {
-  const nextIndex = Math.max(0, Math.min(this.slides.length - 1, i));
-
-  if (nextIndex === this.index) return;
-
-  this.index = nextIndex;
-  this.update();
-}
-
-update() {
-  this.slides.forEach((slide, i) => {
-    const isActive = i === this.index;
-
-    slide.classList.toggle('active', isActive);
-    slide.setAttribute('aria-hidden', String(!isActive));
-
-    if (isActive) {
-      // Memulai ulang animasi elemen di dalam slide aktif
-      slide.classList.remove('animate-in');
-      void slide.offsetWidth;
-      slide.classList.add('animate-in');
-    } else {
-      slide.classList.remove('animate-in');
-    }
-  });
-
-  this.dotButtons.forEach((dot, i) => {
-    dot.classList.toggle('active', i === this.index);
-    dot.setAttribute('aria-current', i === this.index ? 'step' : 'false');
-  });
-
-  this.counter.textContent =
-    `${String(this.index + 1).padStart(2, '0')} / ` +
-    `${String(this.slides.length).padStart(2, '0')}`;
-
-  this.fill.style.width =
-    `${((this.index + 1) / this.slides.length) * 100}%`;
-
-  const current = this.slides[this.index];
-
-  document.title =
-    `${String(this.index + 1).padStart(2, '0')} — ` +
-    `${current.querySelector('h1,h2')?.innerText.replace(/\n/g, ' ') || 'Sejarah Indonesia'}`;
-
-  this.deck.style.setProperty(
-    '--pointer-x',
-    `${38 + (this.index % 4) * 8}%`
-  );
-
-  this.deck.style.setProperty(
-    '--pointer-y',
-    `${24 + (this.index % 3) * 19}%`
-  );
-
-  if (this.flash) {
-    this.flash.classList.remove('fire');
-    void this.flash.offsetWidth;
-    this.flash.classList.add('fire');
-  }
-}
-
-next() {
-  this.go(this.index + 1);
-}
-
-prev() {
-  this.go(this.index - 1);
-}
-
-bind() {
-  document.getElementById('next')
-    .addEventListener('click', () => this.next());
-
-  document.getElementById('prev')
-    .addEventListener('click', () => this.prev());
-
-  document.addEventListener('keydown', e => {
-    if (['ArrowRight', 'PageDown', ' '].includes(e.key)) {
-      e.preventDefault();
-      this.next();
-    }
-
-    if (['ArrowLeft', 'PageUp'].includes(e.key)) {
-      e.preventDefault();
-      this.prev();
-    }
-
-    if (e.key.toLowerCase() === 'f') {
-      if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen?.();
-      } else {
-        document.exitFullscreen?.();
-      }
-    }
-
-    if (e.key === 'Home') this.go(0);
-    if (e.key === 'End') this.go(this.slides.length - 1);
-  });
-
-  let wheelLock = false;
-
-  document.addEventListener('wheel', e => {
-    if (wheelLock) return;
-
-    if (Math.abs(e.deltaY) < 20) return;
-
-    wheelLock = true;
-
-    if (e.deltaY > 0) this.next();
-    else this.prev();
-
-    setTimeout(() => {
-      wheelLock = false;
-    }, 750);
-  }, { passive: true });
-
-  let touchStartX = 0;
-  let touchStartY = 0;
-
-  document.addEventListener('touchstart', e => {
-    touchStartX = e.changedTouches[0].screenX;
-    touchStartY = e.changedTouches[0].screenY;
-  }, { passive: true });
-
-  document.addEventListener('touchend', e => {
-    const dx = touchStartX - e.changedTouches[0].screenX;
-    const dy = touchStartY - e.changedTouches[0].screenY;
-
-    if (Math.abs(dx) > 65 && Math.abs(dx) > Math.abs(dy)) {
-      if (dx > 0) this.next();
-      else this.prev();
-    } else if (Math.abs(dy) > 75) {
-      if (dy > 0) this.next();
-      else this.prev();
-    }
-  }, { passive: true });
-}
-new SlidePresentation();
-</script>
 </body>
 </html>

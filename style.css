@@ -1529,3 +1529,202 @@ p {
     animation: none;
   }
 }
+/* =========================================================
+   CINEMATIC ENGINE — VIRTUAL CAMERA 3D + IMAGE REVEAL
+   Tambahkan di paling bawah style.css
+   Tanpa perubahan HTML/JavaScript
+   ========================================================= */
+
+/* 1. Kedalaman kamera virtual */
+.deck {
+  perspective: 1600px;
+  perspective-origin: 50% 45%;
+}
+
+.slide {
+  transform-origin: 50% 50%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.slide.active {
+  animation: cameraSettle 1.05s cubic-bezier(.16, 1, .3, 1) both;
+}
+
+/* 2. Foto terbuka seperti adegan film */
+.slide.active .visual {
+  animation:
+    imageCinematicReveal 1.15s cubic-bezier(.16, 1, .3, 1) both;
+  transform-origin: 50% 50%;
+}
+
+/* 3. Kamera bergerak masuk ke foto */
+.slide.active .visual img {
+  animation: virtualCameraMove 12s 1.1s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+/* 4. Lapisan pembuka foto */
+.visual {
+  clip-path: inset(0 round 14px);
+}
+
+.visual::after {
+  animation:
+    liquidReflection 9s ease-in-out infinite,
+    cinematicImageSweep 1.25s .12s cubic-bezier(.16, 1, .3, 1) both;
+}
+
+/* 5. Judul muncul seperti pembukaan adegan */
+.slide.active h1,
+.slide.active h2 {
+  animation: cinematicTitle 1s .12s cubic-bezier(.16, 1, .3, 1) both;
+}
+
+/* 6. Informasi muncul setelah gambar */
+.slide.active .copy > * {
+  animation: cinematicText  .75s .28s cubic-bezier(.16, 1, .3, 1) both;
+}
+
+.slide.active .copy > *:nth-child(2) { animation-delay: .38s; }
+.slide.active .copy > *:nth-child(3) { animation-delay: .48s; }
+.slide.active .copy > *:nth-child(4) { animation-delay: .58s; }
+.slide.active .copy > *:nth-child(5) { animation-delay: .68s; }
+
+/* 7. Lapisan cahaya bergerak di atas adegan */
+.visual::before {
+  background:
+    linear-gradient(
+      120deg,
+      rgba(255,255,255,.15),
+      transparent 22%,
+      transparent 70%,
+      rgba(229,185,111,.09)
+    );
+}
+
+/* 8. Kedalaman kartu tokoh */
+.slide.active .person {
+  animation: cinematicCard  .8s cubic-bezier(.16, 1, .3, 1) both;
+}
+
+.slide.active .person:nth-child(2) { animation-delay: .1s; }
+.slide.active .person:nth-child(3) { animation-delay: .2s; }
+.slide.active .person:nth-child(4) { animation-delay: .3s; }
+
+/* 9. Keyframes */
+@keyframes cameraSettle {
+  from {
+    opacity: .7;
+    transform: translate3d(0, 18px, -65px) scale(.975);
+    filter: blur(3px);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes imageCinematicReveal {
+  0% {
+    opacity: .35;
+    clip-path: inset(0 48% 0 48% round 14px);
+    transform: perspective(1300px) translateZ(-90px) scale(.94);
+  }
+  60% {
+    clip-path: inset(0 0 0 0 round 14px);
+  }
+  100% {
+    opacity: 1;
+    clip-path: inset(0 0 0 0 round 14px);
+    transform: perspective(1300px) translateZ(0) scale(1);
+  }
+}
+
+@keyframes virtualCameraMove {
+  0% {
+    transform: scale(1.015) translate3d(0, 0, 0);
+  }
+  100% {
+    transform: scale(1.09) translate3d(-1.1%, -1%, 0);
+  }
+}
+
+@keyframes cinematicImageSweep {
+  0% {
+    background-position: 0 0, -120% 0;
+  }
+  100% {
+    background-position: 0 0, 140% 0;
+  }
+}
+
+@keyframes cinematicTitle {
+  from {
+    opacity: 0;
+    transform: perspective(900px) translate3d(0, 25px, -35px);
+    filter: blur(5px);
+  }
+  to {
+    opacity: 1;
+    transform: perspective(900px) translate3d(0, 0, 0);
+    filter: blur(0);
+  }
+}
+
+@keyframes cinematicText {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 16px, -12px);
+    filter: blur(3px);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    filter: blur(0);
+  }
+}
+
+@keyframes cinematicCard {
+  from {
+    opacity: 0;
+    transform: perspective(900px) translateY(24px) rotateX(4deg) scale(.97);
+    filter: blur(2px);
+  }
+  to {
+    opacity: 1;
+    transform: perspective(900px) translateY(0) rotateX(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* 10. Gerakan tetap nyaman di layar kecil */
+@media (max-width: 800px) {
+  .slide.active .visual img {
+    animation: virtualCameraMobile 14s 1.1s ease-in-out infinite alternate;
+  }
+
+  @keyframes virtualCameraMobile {
+    from { transform: scale(1.01); }
+    to   { transform: scale(1.045); }
+  }
+}
+
+/* 11. Kurangi gerakan jika diminta sistem */
+@media (prefers-reduced-motion: reduce) {
+  .slide.active,
+  .slide.active .visual,
+  .slide.active .visual img,
+  .slide.active .visual::after,
+  .slide.active h1,
+  .slide.active h2,
+  .slide.active .copy > *,
+  .slide.active .person {
+    animation: none !important;
+  }
+
+  .visual {
+    clip-path: none;
+  }
+}

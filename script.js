@@ -35,22 +35,83 @@ class SlidePresentation {
     this.dotButtons = [...this.dots.querySelectorAll("button")];
   }
 
-  go(i) {
-    const nextIndex = Math.max(0, Math.min(this.slides.length - 1, i));
+  
+go(i) {
+  const nextIndex = Math.max(
+    0,
+    Math.min(this.slides.length - 1, i)
+  );
 
-    if (nextIndex === this.index) {
-      // Klik slide yang sama untuk mengulang animasinya.
-      const current = this.slides[this.index];
-      current.classList.remove("active");
-      void current.offsetWidth;
-      current.classList.add("active");
-      this.playFlash();
-      return;
-    }
+  // Klik slide yang sama: ulangi animasi masuk.
+  if (nextIndex === this.index) {
+    const current = this.slides[this.index];
 
-    this.index = nextIndex;
-    this.update(true);
+    current.classList.remove("active");
+    void current.offsetWidth;
+    current.classList.add("active");
+
+    this.playFlash();
+    return;
   }
+
+  // Hentikan pembersihan transisi sebelumnya jika
+  // pengguna menekan tombol dengan cepat.
+  if (this.transitionTimer) {
+    clearTimeout(this.transitionTimer);
+  }
+
+  // Bersihkan kelas transisi yang tersisa.
+  const cameraClasses = [
+    "camera-leaving",
+    "camera-entering",
+    "camera-forward",
+    "camera-backward",
+    "camera-push",
+    "camera-fly",
+    "camera-pan"
+  ];
+
+  this.slides.forEach(slide => {
+    slide.classList.remove(...cameraClasses);
+  });
+
+  const previousIndex = this.index;
+  const outgoing = this.slides[previousIndex];
+  const incoming = this.slides[nextIndex];
+
+  const direction =
+    nextIndex > previousIndex ? "forward" : "backward";
+
+  // Ganti mode kamera secara bergantian.
+  const modes = ["push", "fly", "pan"];
+  const mode = modes[previousIndex % modes.length];
+
+  // Tandai slide lama dan slide baru sebelum navigasi.
+  outgoing.classList.add(
+    "camera-leaving",
+    `camera-${direction}`,
+    `camera-${mode}`
+  );
+
+  incoming.classList.add(
+    "camera-entering",
+    `camera-${direction}`,
+    `camera-${mode}`
+  );
+
+  // Fungsi update asli tetap mengatur:
+  // active, counter, progress, dots, dan judul dokumen.
+  this.index = nextIndex;
+  this.update(true);
+
+  // Bersihkan kelas setelah transisi selesai.
+  this.transitionTimer = setTimeout(() => {
+    outgoing.classList.remove(...cameraClasses);
+    incoming.classList.remove(...cameraClasses);
+    this.transitionTimer = null;
+  }, 1150);
+}
+
 
   update(animate = true) {
     this.slides.forEach((slide, i) => {

@@ -1728,3 +1728,290 @@ p {
     clip-path: none;
   }
 }
+
+/* ==========================================
+   HYBRID MOVIE CAMERA — 3D SLIDE TRANSITIONS
+   ========================================== */
+
+.deck {
+  perspective: 1600px;
+  perspective-origin:
+    var(--pointer-x, 50%)
+    var(--pointer-y, 50%);
+  transform-style: preserve-3d;
+  overflow: hidden;
+  isolation: isolate;
+  transition: perspective-origin 1050ms ease-in-out;
+}
+
+.slide {
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+/* Pertahankan kedua slide selama transisi */
+.slide.camera-leaving,
+.slide.camera-entering {
+  visibility: visible !important;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  pointer-events: none !important;
+}
+
+.slide.camera-leaving {
+  z-index: 20 !important;
+}
+
+.slide.camera-entering.active {
+  z-index: 21 !important;
+}
+
+/* Mode 1 — PUSH IN: kamera maju ke adegan */
+.slide.camera-leaving.camera-push.camera-forward {
+  animation: moviePushOut 1050ms cubic-bezier(.72, 0, .22, 1)
+    both !important;
+}
+
+.slide.camera-entering.camera-push.camera-forward {
+  animation: moviePushIn 1050ms cubic-bezier(.2, .72, .25, 1)
+    both !important;
+}
+
+.slide.camera-leaving.camera-push.camera-backward {
+  animation: moviePushOutBack 1050ms cubic-bezier(.72, 0, .22, 1)
+    both !important;
+}
+
+.slide.camera-entering.camera-push.camera-backward {
+  animation: moviePushInBack 1050ms cubic-bezier(.2, .72, .25, 1)
+    both !important;
+}
+
+/* Mode 2 — FLY-THROUGH: masuk dari kedalaman ruang */
+.slide.camera-leaving.camera-fly.camera-forward {
+  animation: movieFlyOut 1050ms cubic-bezier(.65, 0, .25, 1)
+    both !important;
+}
+
+.slide.camera-entering.camera-fly.camera-forward {
+  animation: movieFlyIn 1050ms cubic-bezier(.2, .72, .25, 1)
+    both !important;
+}
+
+.slide.camera-leaving.camera-fly.camera-backward {
+  animation: movieFlyOutBack 1050ms cubic-bezier(.65, 0, .25, 1)
+    both !important;
+}
+
+.slide.camera-entering.camera-fly.camera-backward {
+  animation: movieFlyInBack 1050ms cubic-bezier(.2, .72, .25, 1)
+    both !important;
+}
+
+/* Mode 3 — CAMERA PAN: gerakan menyamping dalam ruang 3D */
+.slide.camera-leaving.camera-pan.camera-forward {
+  animation: moviePanOut 1050ms cubic-bezier(.65, 0, .25, 1)
+    both !important;
+}
+
+.slide.camera-entering.camera-pan.camera-forward {
+  animation: moviePanIn 1050ms cubic-bezier(.2, .72, .25, 1)
+    both !important;
+}
+
+.slide.camera-leaving.camera-pan.camera-backward {
+  animation: moviePanOutBack 1050ms cubic-bezier(.65, 0, .25, 1)
+    both !important;
+}
+
+.slide.camera-entering.camera-pan.camera-backward {
+  animation: moviePanInBack 1050ms cubic-bezier(.2, .72, .25, 1)
+    both !important;
+}
+
+/* KEYFRAMES: PUSH IN */
+
+@keyframes moviePushOut {
+  0% {
+    opacity: 1;
+    transform: translateZ(0) scale(1);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateZ(220px) scale(1.28);
+    filter: blur(5px);
+  }
+}
+
+@keyframes moviePushIn {
+  0% {
+    opacity: 0;
+    transform: translateZ(-650px) scale(.58);
+    filter: blur(9px);
+  }
+  75% {
+    opacity: 1;
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateZ(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes moviePushOutBack {
+  0% {
+    opacity: 1;
+    transform: translateZ(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateZ(-450px) scale(.68);
+    filter: blur(5px);
+  }
+}
+
+@keyframes moviePushInBack {
+  0% {
+    opacity: 0;
+    transform: translateZ(220px) scale(1.28);
+    filter: blur(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateZ(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* KEYFRAMES: FLY-THROUGH */
+
+@keyframes movieFlyOut {
+  0% {
+    opacity: 1;
+    transform: translateZ(0) scale(1);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateZ(500px) scale(1.48);
+    filter: blur(8px);
+  }
+}
+
+@keyframes movieFlyIn {
+  0% {
+    opacity: 0;
+    transform: translateZ(-1000px) scale(.38)
+      rotateY(-7deg);
+    filter: blur(12px);
+  }
+  70% {
+    opacity: 1;
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateZ(0) scale(1) rotateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes movieFlyOutBack {
+  0% {
+    opacity: 1;
+    transform: translateZ(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateZ(-650px) scale(.48)
+      rotateY(-8deg);
+    filter: blur(8px);
+  }
+}
+
+@keyframes movieFlyInBack {
+  0% {
+    opacity: 0;
+    transform: translateZ(350px) scale(1.42)
+      rotateY(7deg);
+    filter: blur(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateZ(0) scale(1) rotateY(0);
+    filter: blur(0);
+  }
+}
+
+/* KEYFRAMES: CAMERA PAN */
+
+@keyframes moviePanOut {
+  0% {
+    opacity: 1;
+    transform: translateX(0) rotateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-32%) translateZ(-220px)
+      rotateY(18deg) scale(.78);
+    filter: blur(5px);
+  }
+}
+
+@keyframes moviePanIn {
+  0% {
+    opacity: 0;
+    transform: translateX(36%) translateZ(-520px)
+      rotateY(-24deg) scale(.72);
+    filter: blur(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) translateZ(0)
+      rotateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes moviePanOutBack {
+  0% {
+    opacity: 1;
+    transform: translateX(0) rotateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(32%) translateZ(-220px)
+      rotateY(-18deg) scale(.78);
+    filter: blur(5px);
+  }
+}
+
+@keyframes moviePanInBack {
+  0% {
+    opacity: 0;
+    transform: translateX(-36%) translateZ(-520px)
+      rotateY(24deg) scale(.72);
+    filter: blur(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) translateZ(0)
+      rotateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* Kurangi gerakan jika diminta oleh sistem */
+@media (prefers-reduced-motion: reduce) {
+  .slide.camera-leaving,
+  .slide.camera-entering {
+    animation-duration: 1ms !important;
+  }
+
+  .deck {
+    transition-duration: 1ms;
+  }
+}
